@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       id: '',
-      tur: []
+      tur: {}
     }
   },
   mounted() {

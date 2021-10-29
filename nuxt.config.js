@@ -55,11 +55,7 @@ export default {
   axios: {
     baseURL: "http://localhost:3000/"  // here set your API url
   },
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  // build: {
-  //   transpile: [/^element-ui/],
-  // },
   build: {
     vendor: ['vuetify']
   },
