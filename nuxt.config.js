@@ -29,7 +29,7 @@ export default {
   // plugins: [
   //   '@/plugins/globals'
   // ],
-  plugins: ['~plugins/vuetify.js'],
+  plugins: ['~plugins/vuetify.js', '~plugins/filters.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -67,6 +67,7 @@ export default {
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: ["vee-validate/dist/rules"],
     vendor: ['vuetify']
   },
   router: {

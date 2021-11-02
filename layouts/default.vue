@@ -2,15 +2,18 @@
   <div>
     <v-app>
 
-      <app-navbar></app-navbar>
+
 
       <v-main class="mt-4">
         <v-container class="pa-0">
+          <app-navbar></app-navbar>
+          <zakaz />
           <Nuxt />
+            <app-footer></app-footer>
         </v-container>
       </v-main>
 
-      <app-footer></app-footer>
+
 
     </v-app>
   </div >
