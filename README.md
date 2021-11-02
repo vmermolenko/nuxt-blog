@@ -10,8 +10,9 @@ git checkout master
 git branch -D newBranch
 
 
-npm init
-npm install express sequelize pg pg-hstore cors jsonwebtoken bcryptjs --save
-npm i nuxt-express-module
-npm i @nuxtjs/auth-next
-npm i @nuxtjs/axios
+### npm init
+### npm install express sequelize pg pg-hstore cors jsonwebtoken bcryptjs --save
+### npm i nuxt-express-module
+### npm i @nuxtjs/auth-next
+### npm i @nuxtjs/axios
+### npm install vee-validate --save
