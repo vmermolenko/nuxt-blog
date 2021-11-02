@@ -29,7 +29,7 @@ export default {
   // plugins: [
   //   '@/plugins/globals'
   // ],
-  plugins: ['~plugins/vuetify.js'],
+  plugins: ['~plugins/vuetify.js', '~plugins/filters.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -55,12 +55,9 @@ export default {
   axios: {
     baseURL: "http://localhost:3000/"  // here set your API url
   },
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  // build: {
-  //   transpile: [/^element-ui/],
-  // },
   build: {
+    transpile: ["vee-validate/dist/rules"],
     vendor: ['vuetify']
   },
   router: {

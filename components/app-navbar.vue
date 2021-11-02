@@ -1,13 +1,15 @@
 <template>
-
+<div>
 <v-app-bar
-        app
+
         color="white"
         dense
+        flat
 
       >
-      <v-app-bar-nav-icon @click.stop="emit('click')" class="d-flex d-md-none"/>
+      <v-app-bar-nav-icon @click.stop="drawer=!drawer" class="d-flex d-md-none"/>
       <nuxt-link to="/" class="d-flex nuxtLink">
+
 <!--logo -->
         <v-img
           class="d-none d-sm-flex"
@@ -25,40 +27,51 @@
 
         <v-spacer></v-spacer>
 
-        <v-divider
+        <!-- <v-divider
           vertical
           class="mr-3 d-none d-lg-block"
-        ></v-divider>
+        ></v-divider> -->
 
         <v-icon class="d-none d-sm-flex">mdi-phone-classic</v-icon>
         <v-toolbar-title class="black--text ml-3  d-none d-sm-flex">
           +7(981)781-60-68
         </v-toolbar-title>
 
-        <v-divider
+        <!-- <v-divider
           vertical
           class="ml-3 d-none d-lg-block"
-        ></v-divider>
+        ></v-divider> -->
 
         <v-btn
           rounded
-          class="ml-3  white--text"
+          class="ml-5  white--text"
           color="primary"
           elevation="2"
+          @click="clickZakaz"
         >
         <!-- color="indigo darken-4" -->
         Заказать тур
         </v-btn>
 
+
       </v-app-bar>
 
+       <v-navigation-drawer v-model="drawer" absolute width="280">
+        <fixed-panel style="height: 100%"></fixed-panel>
+      </v-navigation-drawer>
+</div>
 
 </template>
 <script>
 export default {
   data() {
     return {
-
+drawer: false
+    }
+  },
+  methods: {
+    clickZakaz() {
+      this.$store.commit('setDialog')
     }
   },
 

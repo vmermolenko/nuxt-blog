@@ -1,12 +1,13 @@
 <template>
   <div>
+    <v-divider class="mb-5 mt-5"></v-divider>
     <v-app>
       <v-container>
         <v-row>
             <v-col md="12"  >
-              <v-card elevation="10" >
+              <v-card elevation="0" >
                 <p class="text-h5 font-weight-bold" style="text-align: center">{{tur.title}}</p>
-              <v-img :src="tur.img" height="400" contain class="mb-5">
+              <v-img :src="tur.img"  width="100%" contain class="mb-5">
               </v-img>
               <p class="text-h5 font-weight-bold" style="text-align: center">Содержание тура...</p>
               <pre>
@@ -37,7 +38,7 @@
                     rounded
                     class="mt-3 mb-5 white--text"
                     color="primary"
-                    elevation="2"
+                    elevation="1"
                   >
                   <!-- color="indigo darken-4" -->
                   Заказать этот тур
@@ -48,7 +49,7 @@
         </v-row>
         <v-row class="mb-5">
           <v-col md="12">
-            <v-card elevation="10">
+            <v-card elevation="5">
               <v-card-title>
                 <p class="text-h6 font-weight-bold" style="text-align: left">Другие туры по {{tur.type}}</p>
               </v-card-title>
@@ -65,7 +66,9 @@
             </v-card>
           </v-col>
         </v-row>
+        <v-divider class="mt-7"></v-divider>
       </v-container>
+
     </v-app>
 
   </div>
@@ -77,7 +80,7 @@ export default {
   data() {
     return {
       id: '',
-      tur: []
+      tur: {}
     }
   },
   mounted() {

@@ -2,11 +2,12 @@
 <template>
   <div>
     <v-card
-      style="position: sticky; top: 56px"
+      style="position: sticky; top: 0px"
       md="3"
       elevation="4"
-      height="525"
+      height="425"
     >
+  <!-- site search -->
       <v-autocomplete
         class="ma-3"
         color="primary"
@@ -19,91 +20,96 @@
         return-object
       ></v-autocomplete>
 
-     <v-switch
-      class="ml-5"
-      v-model="switch1"
-      label="Все туры"
-    ></v-switch>
-      <!-- <v-checkbox
-        class="ml-4"
-        v-model="selected"
-        label="Все туры"
-        color="primary"
-        value="all"
-        hide-details -->
-      <!-- </v-checkbox> -->
-      <v-checkbox
-        class="ml-4"
-        v-model="selected"
-        label="Туры по Санкт-Петербургу"
-        color="primary"
-        value="spb"
-        hide-details
-      ></v-checkbox>
-      <v-checkbox
-        class="ml-4"
-        v-model="selected"
-        label="Туры по пригородам Санкт-Петербурга"
-        color="primary"
-        value="prigorod"
-        hide-details
-      ></v-checkbox>
-      <v-checkbox
-        class="ml-4"
-        v-model="selected"
-        label="Туры по Карелии"
-        color="primary"
-        value="karelia"
-        hide-details
-      ></v-checkbox>
-      <v-checkbox
-        class="ml-4"
-        v-model="selected"
-        label="Вип туры"
-        color="primary"
-        value="vip"
-        hide-details
-      ></v-checkbox>
+      <div @click="clickCheckbox">
+        <v-checkbox
+          class="ml-2 mt-0"
+          v-model="selected"
 
-      <v-divider class="mb-7 mt-7"></v-divider>
+          color="primary"
+          value="all"
+          hide-details
+          @click="setAllFilter"
+        >
+          <template v-slot:label>
+            <span>
+              Все туры
+              &nbsp; <span class="primary--text" style="font-size: 0.8em;">{{$store.state.turs.length}}</span>
+            </span>
+          </template>
+        </v-checkbox>
 
-      <v-btn block class="mb-2" color="primary">
-        О нас
-      </v-btn>
+        <v-checkbox v-for="check in checkbox" :key="check.value"
+          class="ml-2"
+          v-model="selected"
+          color="primary"
+          :value="check.value"
+          hide-details
+        >
+          <template v-slot:label>
+            <span>
+              {{check.label}}
+              &nbsp; <span class="primary--text" style="font-size: 0.8em;">{{check.value | counter($store.state.turs)}}</span>
+            </span>
+          </template>
+        </v-checkbox>
+      </div>
 
-      <v-btn block class="mb-2" color="primary">
-        Блог
-      </v-btn>
+      <v-progress-linear v-show="loader"
+        class="mt-5"
+        indeterminate
+        color="primary"
+      ></v-progress-linear>
 
-      <v-btn block color="primary">
-        Контакты
-      </v-btn>
     </v-card>
   </div>
 </template>
 <script>
+
 export default {
   data() {
     return {
-      switch1: true,
+      loader: false,
       selected:[],
+      checkbox: [
+        {label: 'Туры по Санкт-Петербургу', value: 'spb'},
+        {label: 'Туры по пригородам Санкт-Петербурга', value: 'prigorod'},
+        {label: 'Туры по Карелии', value: 'karelia'},
+        {label: 'Вип туры', value: 'vip'},
+      ]
+    }
+  },
+  methods: {
+    clickCheckbox() {
+      this.loader = true
+      setTimeout(() => {this.loader=false}, 1500)
+    },
+    setAllFilter() {
+      if (this.selected.indexOf('all')  >= -1 ) {
+        this.selected = ['all']
+      }
     }
   },
   computed: {
     selectedFromVuex() {
       return this.$store.getters.SelectedCategory
+    },
+    compFilersSelected(){
+      if ((this.selected.length > 1) && (this.selected.indexOf('all')  >= 0 )) {
+        this.selected.splice(this.selected.indexOf('all'), 1);
+      }
+      if (this.selected.indexOf('all')  >= 0 ) {
+        this.selected = ['all']
+      }
+      return this.selected
     }
   },
   mounted() {
     this.selected = this.selectedFromVuex
   },
   watch: {
-    switch1() {
-      this.selected = selected['spb']
-          }
-    // selected () {
-    //   this.$store.commit('setFilterByCategory',this.selected)
-    // }
+    selected () {
+      this.$store.commit('setFilterByCategory',this.compFilersSelected)
+    },
   }
 }
 </script>
