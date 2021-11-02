@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-divider class="mb-5 mt-5"></v-divider>
-    <v-app id="inspire">
 
+    <v-app id="inspire">
+      <v-divider class="mb-5 mt-5"></v-divider>
       <p class="text-h5 font-weight-bold" style="text-align: center">Индивидуальные туры по Санкт-Петербургу и Карелии</p>
 
       <p align="justify" class="pa-2">

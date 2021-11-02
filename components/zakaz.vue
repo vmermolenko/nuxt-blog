@@ -1,15 +1,12 @@
 <template>
+<div>
   <v-row justify="center">
     <v-dialog
       v-model="dialogComp"
       persistent
       max-width="600px"
     >
-
       <v-card>
-
-
-
         <v-card-title>
           <span class="text-h5">Заказ тура</span>
         </v-card-title>
@@ -17,7 +14,7 @@
         <validation-observer
           ref="observer"
         >
-<v-form @submit.prevent="submit">
+<v-form form @submit.prevent="submit">
         <v-card-text>
           <v-container class="pt-0">
             <small>*Заполните необходимые поля и мы свяжемся с Вами</small>
@@ -142,6 +139,7 @@
       </v-card>
     </v-dialog>
   </v-row>
+  </div>
 </template>
 <script>
   import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
