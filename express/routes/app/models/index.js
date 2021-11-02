@@ -1,7 +1,7 @@
 const config = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
+const sequelize2 = new Sequelize(
   config.DB,
   config.USER,
   config.PASSWORD,
@@ -18,6 +18,10 @@ const sequelize = new Sequelize(
     }
   }
 );
+
+const sequelize = new Sequelize(process.env.DATABASE_URL)
+
+process.env.DATABASE_DEV_URL
 
 const db = {};
 
