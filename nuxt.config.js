@@ -55,6 +55,16 @@ export default {
   axios: {
     baseURL: "http://localhost:3000/"  // here set your API url
   },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL
+    }
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL
+    }
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     vendor: ['vuetify']
@@ -67,18 +77,20 @@ export default {
       local: {
         scheme: "refresh",
         token: {
-          property: "token",
+          property: "accessToken",
           global: true,
           required: true,
-          type: "Bearer"
+          type: "",
+          maxAge: 1800
         },
         user: {
           property: "user",
           autoFetch: true
         },
         refreshToken: {  // it sends request automatically when the access token expires, and its expire time has set on the Back-end and does not need to we set it here, because is useless
-          property: "refresh_token",
+          property: "refreshToken",
           data: "refresh_token",
+          maxAge: 60 * 60 * 24 * 30
         },
         endpoints: {
           login: { url: "/api/auth/signin", method: "post" },
