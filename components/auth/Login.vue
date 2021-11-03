@@ -49,12 +49,22 @@ export default {
         let response = await this.$auth.loginWith("local", {
           data: this.loginData
         });
-        this.$router.push("/");
+        this.$router.push("/admin");
         console.log(response);
       } catch (err) {
         console.log(err);
       }
-    }
+    },
+    async tokenRefresh() {
+      this.error = null
+      return this.$auth.refreshWith('refresh', {
+                                      data: this.loginData
+                                    })
+                                    .catch((err) => {
+                                      console.error(err)
+                                      this.error = err.response?.data
+                                    })
+    },
   }
 };
 </script>

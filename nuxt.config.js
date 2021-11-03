@@ -21,20 +21,26 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    'element-ui/lib/theme-chalk/index.css'
-  ],
+  // css: [
+  //   'element-ui/lib/theme-chalk/index.css'
+  // ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '@/plugins/globals'
-  ],
+  // plugins: [
+  //   '@/plugins/globals'
+  // ],
+  plugins: ['~plugins/vuetify.js', '~plugins/filters.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    // Simple usage
+    '@nuxtjs/vuetify',
+
+    // With options
+    // ['@nuxtjs/vuetify', { /* module options */ }]
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -47,7 +53,17 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: "http://localhost:3000/"  // here set your API url
+    baseURL: process.env.BASE_URL  // here set your API url
+  },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL
+    }
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: "http://localhost:3000/"  // here set your API url
+    }
   },
   publicRuntimeConfig: {
     axios: {
@@ -61,7 +77,8 @@ export default {
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/^element-ui/],
+    transpile: ["vee-validate/dist/rules"],
+    vendor: ['vuetify']
   },
   router: {
     //middleware: ['auth']
@@ -71,18 +88,20 @@ export default {
       local: {
         scheme: "refresh",
         token: {
-          property: "token",
+          property: "accessToken",
           global: true,
           required: true,
-          type: "Bearer"
+          type: "",
+          maxAge: 1800
         },
         user: {
           property: "user",
           autoFetch: true
         },
         refreshToken: {  // it sends request automatically when the access token expires, and its expire time has set on the Back-end and does not need to we set it here, because is useless
-          property: "refresh_token",
+          property: "refreshToken",
           data: "refresh_token",
+          maxAge: 60 * 60 * 24 * 30
         },
         endpoints: {
           login: { url: "/api/auth/signin", method: "post" },
