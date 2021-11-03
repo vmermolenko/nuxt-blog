@@ -11,7 +11,10 @@ export const state = () => ({
       description: 'Новая Голландия- это искусственный остров, который образовался в начале XVIII века, когда были прорыты два канала- Крюков и Адмиралтейский. Территория',
       img: 'https://life-is-travel.ru/wp-content/uploads/2021/05/%D0%BF%D0%BF%D0%BD%D0%B3-360x240.jpg',
       type: 'spb',
-      typeRus: 'Cанкт-Петербург'
+      typeRus: 'Cанкт-Петербург',
+      content: [
+
+      ]
     },
        {
       id: '2',
@@ -86,7 +89,8 @@ export const state = () => ({
     // },
   ],
   SelectedCategory: ['all'],
-  dialog: false
+  dialog: false,
+  selectedTur: ''
 });
 ////////////////getters
 export const getters = {
@@ -101,6 +105,9 @@ export const getters = {
   },
   getDialog(state) {
     return state.dialog
+  },
+  getSelectedTur(state) {
+    return state.selectedTur
   }
 };
 ////////////////mutation
@@ -110,6 +117,9 @@ export const mutations = {
   },
   setDialog(state) {
     state.dialog = !state.dialog
+  },
+  setSelectedTur(state, title) {
+   state.selectedTur = title
   }
 
 };

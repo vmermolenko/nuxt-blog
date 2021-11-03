@@ -93,7 +93,7 @@ export default {
     selectedFromVuex() {
       return this.$store.getters.SelectedCategory
     },
-    compFilersSelected(){
+    compFilersSelected() {
       if ((this.selected.length > 1) && (this.selected.indexOf('all')  >= 0 )) {
         this.selected.splice(this.selected.indexOf('all'), 1);
       }

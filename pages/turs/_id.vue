@@ -35,6 +35,7 @@
                 ></v-divider>
                 <v-card-actions  class="justify-center">
                   <v-btn
+                    @click="clickZakaz"
                     rounded
                     class="mt-3 mb-5 white--text"
                     color="primary"
@@ -83,10 +84,17 @@ export default {
       tur: {}
     }
   },
+   methods: {
+    clickZakaz() {
+
+      this.$store.commit('setSelectedTur', this.tur.title)
+      this.$store.commit('setDialog')
+    }
+  },
   mounted() {
     this.id = $nuxt._route.params.id
     this.tur = this.$store.state.turs.find(t => t.id === this.id)
-    console.log('from tur', );
+
   }
 }
 </script>

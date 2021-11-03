@@ -5,7 +5,6 @@
       persistent
       max-width="600px"
     >
-
       <v-card>
 
 
@@ -25,13 +24,13 @@
             <v-row>
               <v-col
                 cols="12"
-                sm="6"
+                sm="12"
                 md="12"
                 class="mt-5"
               >
                 <validation-provider
                   v-slot="{ errors }"
-                  name="select"
+                  name="selectComp"
                   rules="required"
                 >
                   <v-autocomplete
@@ -169,8 +168,8 @@
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       name: '',
       email: '',
-      select: '',
-      form: {}
+      form: {},
+      select: ''
     }),
     computed: {
       dialogComp() {
@@ -183,9 +182,16 @@
         });
 
         return titles
+      },
+      selectedComp(){
+        this.select = this.$store.getters.getSelectedTur
+        return this.select
       }
-    },
 
+    },
+    mounted(){
+      this.select = this.selectedComp
+    },
     methods: {
       closeDialog() {
         this.$store.commit('setDialog')
