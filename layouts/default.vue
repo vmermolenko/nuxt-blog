@@ -1,16 +1,19 @@
 <template>
   <div>
-    <div>Меню</div>
-    <Nuxt />
-  </div>
+    <v-app>
+      <v-main class="mt-4">
+        <v-container class="pa-0">
+          <app-navbar></app-navbar>
+
+          <Nuxt />
+          <app-footer></app-footer>
+        </v-container>
+      </v-main>
+    </v-app>
+    <zakaz />
+  </div >
+
 </template>
 
-<script>
-  export default {
 
-  }
-</script>
 
-<style lang="scss" scoped>
-
-</style>

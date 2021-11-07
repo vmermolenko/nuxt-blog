@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Navigation />
-    <h1>About page</h1>
+    <p class="pa-2">
+      {{text}}
+    </p>
   </div>
 </template>
-
 <script>
 export default {
-
+  props: ['text']
 }
 </script>

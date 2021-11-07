@@ -1,6 +1,6 @@
 <template>
   <div>
-      <auth-login />
+    <Nuxt />
   </div>
 </template>
 

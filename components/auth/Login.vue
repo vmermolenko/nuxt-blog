@@ -1,16 +1,6 @@
 <template>
   <div>
     <form @submit.prevent="login">
-      <!-- <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          v-model="loginData.email"
-          aria-describedby="emailHelp"
-        />
-      </div> -->
       <div class="mb-3">
         <label for="username" class="form-label">username</label>
         <input
@@ -49,12 +39,23 @@ export default {
         let response = await this.$auth.loginWith("local", {
           data: this.loginData
         });
-        this.$router.push("/");
-        console.log(response);
+        //console.log(response);
+        //this.$router.push("/admin/");
+        this.$router.push({ path: '/admin/'});
       } catch (err) {
         console.log(err);
       }
-    }
+    },
+    async tokenRefresh() {
+      this.error = null
+      return this.$auth.refreshWith('refresh', {
+                                      data: this.loginData
+                                    })
+                                    .catch((err) => {
+                                      console.error(err)
+                                      this.error = err.response?.data
+                                    })
+    },
   }
 };
 </script>

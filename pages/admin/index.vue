@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1>Главный layout</h1>
-    <Nuxt />
+    <h1>Админ</h1>
   </div>
 </template>
 
@@ -11,6 +10,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style>
 
 </style>
