@@ -55,7 +55,6 @@ export default {
   axios: {
     baseURL: "http://localhost:3000/"  // here set your API url
   },
-  /*
   publicRuntimeConfig: {
     axios: {
       browserBaseURL: process.env.BROWSER_BASE_URL
@@ -66,7 +65,7 @@ export default {
       baseURL: process.env.BASE_URL
     }
   },
-  */
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["vee-validate/dist/rules"],

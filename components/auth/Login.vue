@@ -17,6 +17,7 @@
           v-model="loginData.password"
           class="form-control"
           id="password"
+          autocomplete="on"
         />
       </div>
       <button type="submit" class="btn btn-primary w-100">login</button>
