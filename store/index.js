@@ -12,9 +12,6 @@ export const state = () => ({
       img: 'https://life-is-travel.ru/wp-content/uploads/2021/05/%D0%BF%D0%BF%D0%BD%D0%B3-360x240.jpg',
       type: 'spb',
       typeRus: 'Cанкт-Петербург',
-      content: [
-
-      ]
     },
        {
       id: '2',

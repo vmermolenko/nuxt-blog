@@ -1,11 +1,15 @@
 <template>
-    <div>
+  <div>
       <auth-login />
-    </div>
-  </template>
+  </div>
+</template>
 
-  <script>
-  export default {};
-  </script>
+<script>
+  export default {
 
-  <style></style>
+  }
+</script>
+
+<style lang="scss" scoped>
+
+</style>

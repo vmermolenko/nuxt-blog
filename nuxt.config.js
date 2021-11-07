@@ -53,17 +53,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.BASE_URL  // here set your API url
-  },
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL
-    }
-  },
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: "http://localhost:3000/"  // here set your API url
-    }
+    baseURL: "http://localhost:3000/"  // here set your API url
   },
   /*
   publicRuntimeConfig: {
@@ -109,7 +99,7 @@ export default {
           login: { url: "/api/auth/signin", method: "post" },
           refresh: { url: "/api/auth/refreshtoken", method: "post" },
           logout: false, //  we don't have an endpoint for our logout in our API and we just remove the token from localstorage
-          user: { url: "/api/auth/user", method: "get" }
+          user: { url: "/api/auth/signin", method: "post" }
         }
       }
     }

@@ -1,9 +1,9 @@
 <template>
   <div>
 
-    <v-text class="text-subtitle-2 mx-3">
+    <p class="text-subtitle-2 mx-3">
       {{text}}
-    </v-text>
+    </p>
     <br>
     <br>
 
