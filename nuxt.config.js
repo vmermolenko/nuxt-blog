@@ -1,9 +1,6 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    env: {
-      DATABASE_URL: "postgres://mjqfaaojpjjluh:ee79a0f47051653faeae2a98f5716826659f7933b693bb03b764245d92b060bd@ec2-54-217-15-9.eu-west-1.compute.amazonaws.com:5432/d2k0cm8ik2re8d"
-    },
     title: 'nuxt-blog',
     htmlAttrs: {
       lang: 'en'
@@ -56,7 +53,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: "http://localhost:3000/"  // here set your API url
+    baseURL: process.env.BASE_URL || "http://localhost:3000/"  // here set your API url
   },
   publicRuntimeConfig: {
     axios: {
