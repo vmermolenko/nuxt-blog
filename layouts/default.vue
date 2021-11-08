@@ -10,7 +10,7 @@
         </v-container>
       </v-main>
     </v-app>
-    <zakaz />
+    <modal-zakaz />
   </div >
 
 </template>

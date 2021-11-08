@@ -10,7 +10,7 @@
               <v-img :src="tur.img"  width="100%" contain class="mb-5">
               </v-img>
 
-<component v-for="item in content" :key="item.type" :is="item.type" :text="item.text"></component>
+                <component v-for="item in content" :key="item.id" :is="item.type" :text="item.text"></component>
 
 
                 <v-card-text font-size=8px class="black--text" style="align-items: center">

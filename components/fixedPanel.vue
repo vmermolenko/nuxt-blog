@@ -8,17 +8,7 @@
       height="425"
     >
   <!-- site search -->
-      <v-autocomplete
-        class="ma-3"
-        color="primary"
-        hide-no-data
-        hide-selected
-        item-text="Description"
-        item-value="API"
-        label="Поиск по сайту"
-        prepend-icon="mdi-database-search"
-        return-object
-      ></v-autocomplete>
+   <search-site></search-site>
 
       <div @click="clickCheckbox">
         <v-checkbox

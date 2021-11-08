@@ -19,6 +19,25 @@
           <v-container class="pt-0">
             <small>*Заполните необходимые поля и мы свяжемся с Вами</small>
 <!-- select -->
+
+
+    <!-- <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+        :disabled="!model"
+        color="grey darken-3"
+        @click="model = null"
+      >
+        Clear
+        <v-icon right>
+          mdi-close-circle
+        </v-icon>
+      </v-btn>
+    </v-card-actions> -->
+
+
+
+
             <v-row>
               <v-col
                 cols="12"
