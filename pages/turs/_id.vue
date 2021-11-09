@@ -12,7 +12,6 @@
 
                 <component v-for="item in content" :key="item.id" :is="item.type" :text="item.text"></component>
 
-
                 <v-card-text font-size=8px class="black--text" style="align-items: center">
                   <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : {{tur.group}}
                 </v-card-text>
@@ -39,25 +38,53 @@
               </v-card>
             </v-col>
         </v-row>
-        <v-row class="mb-5">
-          <v-col md="12">
-            <v-card elevation="5">
-              <v-card-title>
-                <p class="text-h6 font-weight-bold" style="text-align: left">Другие туры по {{tur.type}}</p>
-              </v-card-title>
-              <v-row>
-                <v-col md=3>
+
+          <v-row>
+            <v-col md="12">
 
 
-                    <v-img src="https://life-is-travel.ru/wp-content/uploads/2020/11/3tS69Q51TTo-150x150.jpg" class="ml-5">
-                    </v-img>
+                  <p class="mb-0 text-h6 font-weight-bold" style="text-align: left">Другие туры по выбранным категориям:</p>
 
 
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
+
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col md=3 class="pa-2" v-for="(turRandom, index) in filteredTursRandomComp" :key="index">
+              <v-card v-if="turRandom.id"
+                elevation="10"
+                height="100%"
+              >
+                <v-card-text font-size=8px class="pa-1 pl-4 white--text text-no-wrap primary">
+                    {{turRandom.typeRus}}
+                </v-card-text>
+                <v-img
+                contain
+
+                :src="turRandom.img"
+                >
+                </v-img>
+
+                <v-card-text font-size=8px class="pa-1 black--text" style="height:40px">
+                  {{turRandom.title}}
+                </v-card-text>
+
+                <v-card-actions class="a justify-center" @click="$router.push(`/turs/${turRandom.id}`)">
+                  <v-btn class="mb-5"
+                    rounded
+                    color="primary"
+                    text
+
+                  >
+                    Посмотреть тур
+                  </v-btn>
+                </v-card-actions>
+
+              </v-card>
+            </v-col>
+          </v-row>
+
         <v-divider class="mt-7"></v-divider>
       </v-container>
 
@@ -89,20 +116,33 @@ export default {
         {type: 'constructor-list-item', text: 'первый железнодорожный мост России;'},
         {type: 'constructor-list-item', text: 'места где глубоко любили русский балет и одно место казни;'},
         {type: 'constructor-list-item', text: 'одно место рождения матери вождя мирового пролетариата и два места убийства.'}
-      ]
+      ],
+
     }
+  },
+  computed: {
+    // selectedCategoryComp(){
+    //   return this.$store.getters.SelectedCategory
+    // },
+    filteredTursRandomComp() {
+      return this.$store.getters.getFilteredTursRandom
+    },
   },
    methods: {
     clickZakaz() {
-
-      this.$store.commit('setSelectedTur', this.tur.title)
       this.$store.commit('setDialog')
     }
   },
   mounted() {
+
+
+
     this.id = $nuxt._route.params.id
     this.tur = this.$store.state.turs.find(t => t.id === this.id)
+    this.$store.commit('setTurForZakaz', this.tur.title)
+    this.$store.commit('setFilteredTursRandom')
 
+    console.log('randomItems',this.filteredTursRandomComp);
   }
 }
 </script>

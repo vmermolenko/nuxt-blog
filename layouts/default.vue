@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-app>
+      <alert v-if="flag"></alert>
       <v-main class="mt-4">
         <v-container class="pa-0">
           <app-navbar></app-navbar>
@@ -10,10 +11,32 @@
         </v-container>
       </v-main>
     </v-app>
-    <modal-zakaz />
+    <modal-zakaz
+    @showAlert="showAlert"
+    ></modal-zakaz>
   </div >
 
 </template>
+<script>
+export default {
+  data() {
+    return {
+      flag: false
+    }
+  },
+  methods: {
+    showAlert(){
+      this.flag=!this.flag
+      setTimeout(()=>{
+        this.flag=!this.flag
+      }, 3000)
+    }
+  },
+  mounted() {
+
+  },
+}
+</script>
 
 
 

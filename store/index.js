@@ -87,10 +87,15 @@ export const state = () => ({
   ],
   SelectedCategory: ['all'],
   dialog: false,
-  selectedTur: ''
+  turForZakaz: '',
+  filteredTurs: [],
+  filteredTursRandom: []
 });
 ////////////////getters
 export const getters = {
+  getTurs(state) {
+    return state.turs
+  },
   isAuthenticated(state) {
     return state.auth.loggedIn; // auth object as default will be added in vuex state, when you initialize nuxt auth
   },
@@ -103,22 +108,40 @@ export const getters = {
   getDialog(state) {
     return state.dialog
   },
-  getSelectedTur(state) {
-    return state.selectedTur
+  getTurForZakaz(state) {
+    return state.turForZakaz
+  },
+  getFilteredTurs(state){
+    return state.filteredTurs
+  },
+  getFilteredTursRandom(state){
+    return state.filteredTursRandom
   }
 };
 ////////////////mutation
 export const mutations = {
+
+  setFilteredTursRandom(state){
+    const arr = Array.of(...this.getters.getTurs) || []
+    const randomItems = []
+
+      for(let i = 0; i < 4 ; i++){
+        const item = arr[Math.floor(Math.random() * arr.length)]
+        randomItems.push(item || {})
+        arr.splice(arr.indexOf(item), 1)
+      }
+    state.filteredTursRandom = randomItems
+
+  },
+  setTurForZakaz(state, title){
+    state.turForZakaz = title
+  },
   setFilterByCategory(state, newArray){
     state.SelectedCategory = newArray
   },
   setDialog(state) {
     state.dialog = !state.dialog
-  },
-  setSelectedTur(state, title) {
-   state.selectedTur = title
   }
-
 };
 
 

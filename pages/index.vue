@@ -38,8 +38,6 @@
                   {{tur.title}}
                 </v-card-title>
 
-
-
                 <v-card-text font-size=8px class="black--text" style="align-items: center">
                   <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : {{tur.group}}
                 </v-card-text>
@@ -51,13 +49,13 @@
                 <v-card-text align="justify" style="height:100px" class="py-0">
                   {{tur.description}}
                 </v-card-text>
-
+<!-- @click="$store.commit('setFilteredTursRandom', filterTurs)" -->
                 <v-card-actions class="a justify-center">
                   <v-btn class="mb-5"
                     rounded
                     color="primary"
                     text
-                    @click.stop=""
+
                   >
                     <NuxtLink :to="`turs/${tur.id}`">Посмотреть тур</NuxtLink>
                   </v-btn>
@@ -100,17 +98,23 @@ export default {
   },
   mounted() {
     this.turs = this.$store.state.turs
+    this.$store.commit('setTurForZakaz', '')
   },
   computed: {
+    turForZakaz(){
+      return this.$store.getters.getTurForZakaz
+    },
+
+    getFilters() {
+      return this.$store.getters.SelectedCategory
+    },
     filterTurs() {
       if (this.getFilters.indexOf('all')  >= 0 ) {
         return this.turs
       }
       return this.turs.filter(t => this.getFilters.includes(t.type))
     },
-    getFilters() {
-      return this.$store.getters.SelectedCategory
-    }
+
   }
 }
 </script>

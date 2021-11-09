@@ -68,6 +68,9 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.selected = this.selectedFromVuex
+  },
   methods: {
     clickCheckbox() {
       this.loader = true
@@ -92,9 +95,6 @@ export default {
       }
       return this.selected
     }
-  },
-  mounted() {
-    this.selected = this.selectedFromVuex
   },
   watch: {
     selected () {
