@@ -17,6 +17,5 @@ export default ({
     const id = context.params.id
     return {id}
   }
-
 })
 </script>

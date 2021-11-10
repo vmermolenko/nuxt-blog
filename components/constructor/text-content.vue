@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p align="justify" class="pa-2">
+    <p align="justify">
       {{text}}
     </p>
   </div>
