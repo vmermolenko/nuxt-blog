@@ -61,10 +61,10 @@ export default {
       loader: false,
       selected:[],
       checkbox: [
-        {label: 'Туры по Санкт-Петербургу', value: 'spb'},
-        {label: 'Туры по пригородам Санкт-Петербурга', value: 'prigorod'},
-        {label: 'Туры по Карелии', value: 'karelia'},
-        {label: 'Вип туры', value: 'vip'},
+        {label: 'Туры по Санкт-Петербургу', value: 'Санкт-Петербург'},
+        {label: 'Туры по пригородам Санкт-Петербурга', value: 'Пригород'},
+        {label: 'Туры по Карелии', value: 'Карелия'},
+        {label: 'Вип туры', value: 'ВИП'},
       ]
     }
   },

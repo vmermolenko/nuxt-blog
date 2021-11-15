@@ -3,7 +3,7 @@
     <p class="text-h6 mb-2">
       {{title}}
     </p>
-    <v-row v-for="item in items" :key="item"
+    <v-row v-for="(item, idx) in items" :key="idx"
     dflex class="my-1"
     >
         <v-badge

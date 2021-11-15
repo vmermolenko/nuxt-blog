@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Nuxt />
+    <v-app>
+      <v-container fluid>
+        <Nuxt />
+      </v-container>
+    </v-app>
   </div>
 </template>
 

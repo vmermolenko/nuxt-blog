@@ -25,7 +25,7 @@
                 height="100%"
               >
                 <v-card-text font-size=8px class="pa-1 pl-4 white--text text-no-wrap primary">
-                    {{tur.typeRus}}
+                    {{tur.type}}
                 </v-card-text>
                 <v-img
                 contain
@@ -57,7 +57,7 @@
                     text
 
                   >
-                    <NuxtLink :to="`turs/${tur.id}`">Посмотреть тур</NuxtLink>
+                    <NuxtLink :to="`turs/${tur.id}`" class="link">Посмотреть тур</NuxtLink>
                   </v-btn>
                 </v-card-actions>
 
@@ -97,7 +97,7 @@ export default {
     }
   },
   mounted() {
-    this.turs = this.$store.state.turs
+    this.turs = this.$store.getters.getTurs
     this.$store.commit('setTurForZakaz', '')
   },
   computed: {
@@ -119,5 +119,5 @@ export default {
 }
 </script>
 <style>
-
+.link{text-decoration:none;}
 </style>

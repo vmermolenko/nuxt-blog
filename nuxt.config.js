@@ -29,6 +29,10 @@ export default {
   // plugins: [
   //   '@/plugins/globals'
   // ],
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+    treeShake: true
+  },
   plugins: ['~plugins/vuetify.js', '~plugins/filters.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
