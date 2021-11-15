@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div style="min-height:270px">
     <p align="justify">
-
       <v-card class="leftimg"  height="260" width="360">
         <v-img :src="foto">
         </v-img>
@@ -9,7 +8,6 @@
           {{nameFoto}}
         </v-card-text>
       </v-card>
-
       {{text}}
     </p>
   </div>
@@ -20,9 +18,8 @@ export default {
 }
 </script>
 <style>
-   .leftimg {
+  .leftimg {
     float:left;
     margin: 10px 10px 10px 0px;
-
-   }
+  }
 </style>

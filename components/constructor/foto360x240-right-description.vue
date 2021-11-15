@@ -1,7 +1,6 @@
 <template>
   <div>
-    <p align="justify">
-
+    <p align="justify" style="min-height:270px">
       <v-card class="rightimg"  height="260" width="360">
         <v-img :src="foto">
         </v-img>

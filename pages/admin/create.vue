@@ -27,8 +27,9 @@
         </v-btn>
       </v-card>
     </v-row>
-    <!-- настройка контента тура -->
+
     <v-row >
+      <!-- настройка контента тура(компоненты) -->
       <v-col cols="3" class="pa-1 " >
         <v-card elevation="4"  class="mx-auto justify-center pa-2 " color="grey" height="100%">
 
@@ -143,7 +144,7 @@
 
         </v-card>
       </v-col>
-
+      <!-- контент тура -->
       <v-col cols="9" class="pa-1 ">
         <v-card elevation="4" class="mb-2 pa-2" color="grey">
           <v-expansion-panels flat hover tile v-model="panel" multiple>
@@ -285,9 +286,7 @@
                         </v-icon>
                       </v-btn>
                       </v-row>
-
                     </v-col>
-
                   </v-row>
                 </v-col>
               </v-row>
@@ -399,7 +398,6 @@
           type: this.type,
           content: this.content
         }
-
         this.$store.commit('setTurs', newTur)
       },
       addItemArray(){
@@ -416,7 +414,6 @@
             foto: this.foto,
             nameFoto: this.nameFoto
           }
-
         )
         this.text = null
         this.title = null
@@ -437,7 +434,6 @@
         this.content=[].concat(ar1,ar2,ar3,ar4)
       },
       MoveDownComponent(item){
-
         const idx = this.content.indexOf(item)
         const ar1 = this.content.slice(0, idx)
         const ar2 = this.content.slice(idx, idx+1)
