@@ -10,7 +10,7 @@
               <v-img :src="tur.img"  width="100%" contain class="mb-5">
               </v-img>
 
-                <component v-for="item in content" :key="item.id" :is="item.type"
+                <component v-for="item in tur.content" :key="item.id" :is="item.type"
                 :text="item.text"
                 :foto="item.foto"
                 :nameFoto="item.nameFoto"
@@ -115,10 +115,11 @@ export default {
   data() {
     return {
       id: '',
-      tur: {},
-      content: [
-
+      tur: {
+        content: [
       ],
+      },
+
 
     }
   },

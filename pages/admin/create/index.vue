@@ -2,33 +2,45 @@
   <div>
     <!-- navbar -->
     <v-row>
-      <v-card elevation="4" width="100%" class="ma-1 pa-1">
-        <v-btn
-        @click="$router.push('/admin')"
-        color="primary"
-        class=" ml-1 my-1"
-        >
-          к списку туров
-        </v-btn>
-
-        <v-btn
-        color="primary"
-        class="my-1"
-        @click="addNewTur"
-        >
-          сохранить
-        </v-btn>
-        <v-btn
-        color="primary"
-        class="my-1"
-        @click="$router.push('/')"
-        >
-          на сайт
-        </v-btn>
+        <v-card width="100%" color="primary" v-if="show">
+          <p class="text-center ma-0 text-h5 white--text">
+            {{compAction}}
+          </p>
+        </v-card>
+      <v-card elevation="4" width="100%" class="ma-1">
+        <v-toolbar dense>
+          <v-btn
+          @click="$router.push('/admin')"
+          color="primary"
+          >
+          <v-icon
+            dark
+            left
+          >
+            mdi-arrow-left
+          </v-icon>
+            К списку туров
+          </v-btn>
+          <v-btn
+          class="ml-5"
+          color="primary"
+          @click="addNewTur"
+          >
+            {{compBtn}}
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+          color="primary"
+          @click="$router.push('/')"
+          >
+            выйти
+            <v-icon class="ml-2">mdi-export</v-icon>
+          </v-btn>
+        </v-toolbar>
       </v-card>
     </v-row>
 
-    <v-row >
+    <v-row>
       <!-- настройка контента тура(компоненты) -->
       <v-col cols="3" class="pa-1 " >
         <v-card elevation="4"  class="mx-auto justify-center pa-2 " color="grey" height="100%">
@@ -37,97 +49,94 @@
             <!-- Выбор компонента -->
             <v-card class="">
               <v-card-text class="black--text text-center text-h6 pb-0">Компоненты</v-card-text>
-
-                      <v-row class="mx-2 mt-0">
-                        <v-col md="12" class=" pa-0">
-                          <v-select
-                            v-model="componentType"
-                            :items="components"
-                            item-text="text"
-                            item-value="value"
-                            label="Выбор компонента"
-                          ></v-select>
-                        </v-col>
-                      </v-row>
+                <v-row class="mx-2 mt-0">
+                  <v-col md="12" class=" pa-0">
+                    <v-select
+                      v-model="componentType"
+                      :items="components"
+                      item-text="text"
+                      item-value="value"
+                      label="Выбор компонента"
+                    ></v-select>
+                  </v-col>
+                </v-row>
             </v-card>
             <!-- Свойства компонентов -->
             <div v-if="componentType">
               <v-card class="mt-5">
                 <v-card-text class="black--text text-center font-weight-bold">Свойства компонентов</v-card-text>
+                  <!-- Фото foto-->
+                  <v-row class="mx-2 mt-0" v-if="compFoto">
+                    <v-col md="12" >
+                    <v-file-input
 
-                    <!-- Фото foto-->
-                    <v-row class="mx-2 mt-0" v-if="compFoto">
-                      <v-col md="12" >
-                      <v-file-input
-
-                        class="mt-0"
-                        accept="image/png, image/jpeg, image/bmp"
-                        placeholder=""
-                        prepend-icon="mdi-camera"
-                        label="Фото"
-                      ></v-file-input>
-                      </v-col>
-                    </v-row>
-                    <!-- Название фото nameFoto-->
-                    <v-row class="mx-2 mt-0" v-if="compFoto">
-                      <v-col md="12"  class="pt-0">
-                        <v-text-field
-                          v-model="nameFoto"
-                          class="pt-0"
-                          label="Название фото"
-                          hide-details="auto"
-                        ></v-text-field>
-                      </v-col>
-                    </v-row>
-                    <!-- Текст text-->
-                    <v-row class="mx-2 mt-0" v-if="compText">
-                      <v-col md="12" >
-                        <v-text-field
-                          v-model="text"
-                          class="pt-0"
-                          label="Текст"
-                          hide-details="auto"
-                        ></v-text-field>
-                      </v-col>
-                    </v-row>
-                    <!-- Заголовок списка titleList-->
-                    <v-row class="mx-2 mt-0" v-if="compList">
-                      <v-col md="12" >
-                        <v-text-field
-                          v-model="title"
-                          class="pt-0"
-                          label="Заголовок списка"
-                          hide-details="auto"
-                        ></v-text-field>
-                      </v-col>
-                    </v-row>
-                    <!-- Элементы списка itemList-->
-                    <v-row class="mx-2 mt-0" v-if="compList">
-                      <div width="100" v-if="itemsArray.lenght !== 0">
-                        <div v-for="(i, idx) in itemsArray" :key="idx">
-                          <item-list :itemListInput="i" ></item-list>
-                        </div>
+                      class="mt-0"
+                      accept="image/png, image/jpeg, image/bmp"
+                      placeholder=""
+                      prepend-icon="mdi-camera"
+                      label="Фото"
+                    ></v-file-input>
+                    </v-col>
+                  </v-row>
+                  <!-- Название фото nameFoto-->
+                  <v-row class="mx-2 mt-0" v-if="compFoto">
+                    <v-col md="12"  class="pt-0">
+                      <v-text-field
+                        v-model="nameFoto"
+                        class="pt-0"
+                        label="Название фото"
+                        hide-details="auto"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <!-- Текст text-->
+                  <v-row class="mx-2 mt-0" v-if="compText">
+                    <v-col md="12" >
+                      <v-text-field
+                        v-model="text"
+                        class="pt-0"
+                        label="Текст"
+                        hide-details="auto"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <!-- Заголовок списка titleList-->
+                  <v-row class="mx-2 mt-0" v-if="compList">
+                    <v-col md="12" >
+                      <v-text-field
+                        v-model="title"
+                        class="pt-0"
+                        label="Заголовок списка"
+                        hide-details="auto"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <!-- Элементы списка itemList-->
+                  <v-row class="mx-2 mt-0" v-if="compList">
+                    <div width="100" v-if="itemsArray.lenght !== 0">
+                      <div v-for="(i, idx) in itemsArray" :key="idx">
+                        <item-list :itemListInput="i" ></item-list>
                       </div>
-                      <v-col md="10">
-                        <v-text-field
-                          v-model="itemListInput"
-                          class="pt-0"
-                          label="Элемент списка"
-                          hide-details="auto"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col md="2" >
-                            <v-btn
-                            @click="addItemArray"
-                            text
-                            icon>
-                              <v-icon color="green">
-                                mdi-plus-thick
-                              </v-icon>
-                            </v-btn>
-                      </v-col>
-                    </v-row>
-
+                    </div>
+                    <v-col md="10">
+                      <v-text-field
+                        v-model="itemListInput"
+                        class="pt-0"
+                        label="Элемент списка"
+                        hide-details="auto"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col md="2" >
+                          <v-btn
+                          @click="addItemArray"
+                          text
+                          icon>
+                            <v-icon color="green">
+                              mdi-plus-thick
+                            </v-icon>
+                          </v-btn>
+                    </v-col>
+                  </v-row>
                 <v-card-actions  class="justify-center mt-10">
                   <v-btn
                   text
@@ -158,7 +167,7 @@
                 <v-row class="mx-2 mt-0">
                   <v-col md="8" >
                     <v-text-field
-                      v-model="TurTitle"
+                      v-model="turEdited.title"
                       class="pt-0"
                       label="Название тура"
                       hide-details="auto"
@@ -179,7 +188,7 @@
                 <v-row class="mx-2 mt-0">
                 <v-col class="pb-0 pt-1">
                   <v-textarea
-                    v-model="description"
+                    v-model="turEdited.description"
                     counter
                     label="Краткое описание"
                     :rules="rules"
@@ -192,21 +201,21 @@
                 <v-row class="mx-2">
                   <v-col md="4" class="py-0">
                     <v-text-field
-                      v-model="group"
+                      v-model="turEdited.group"
                       label="Группа"
                       hide-details="auto"
                     ></v-text-field>
                   </v-col>
                   <v-col md="4" class="py-0">
                     <v-text-field
-                      v-model="amount"
+                      v-model="turEdited.amount"
                       label="Цена"
                       hide-details="auto"
                     ></v-text-field>
                   </v-col>
                   <v-col md="4" class="py-0">
                     <v-select
-                      v-model="type"
+                      v-model="turEdited.type"
                       class="mx-2"
                       :items="category"
                       label="Выбор категории"
@@ -224,11 +233,11 @@
             <v-card-title class="py-0">Контент тура <v-spacer></v-spacer><v-btn color="primary" text><span style="font-size:0.8em">предварительный просмотр</span> </v-btn></v-card-title>
             <v-card-text class="py-0">Для заполнения выберите компонент</v-card-text>
           </v-card>
-          <v-card elevation="4" class="pa-10 text-center" v-if="content.length===0" height="300">
+          <v-card elevation="4" class="pa-10 text-center" v-if="turEdited.content.length===0" height="300">
             <span class="text-h6">Пусто. Вставьте первый компонент</span>
           </v-card>
           <v-card elevation="4" class="pa-3" v-else>
-            <div v-for="(item, index) in content" :key="index">
+            <div v-for="(item, index) in turEdited.content" :key="index">
               <v-divider></v-divider>
               <v-row>
                 <v-col md="11">
@@ -260,16 +269,16 @@
 
                       <v-row>
                         <v-btn
-                        :disabled="index===content.length-1"
+                        :disabled="index===turEdited.content.length-1"
                         class="mb-1"
                         text
                         icon
                         @click="MoveDownComponent(item)"
                         >
-                        <v-icon color="primary" large>
-                        mdi-chevron-down
-                        </v-icon>
-                       </v-btn>
+                          <v-icon color="primary" large>
+                          mdi-chevron-down
+                          </v-icon>
+                        </v-btn>
                       </v-row>
                     </v-col>
 
@@ -309,15 +318,20 @@
     },
     data() {
       return {
-        TurTitle: '',
-        group: '',
-        amount: '',
-        description: '',
-        img: '',
+        show: true,
+        // tur
+        turEdited: {
+          title: '',
+          group: '',
+          amount: '',
+          description: '',
+          img: '',
+          type: '',
+          content: [],
+        },
         rules: [v => v.length <= 230 || 'Максимум 230 символов'],
         value: '',
         panel: [0, 1],
-        type: '',
         text: '',
         title: '',
         itemListInput: null,
@@ -325,9 +339,8 @@
         foto: '',
         nameFoto: '',
         itemsArray: [],
-        content: [
+        // tur
 
-        ],
         componentType: null,
         components: [
           {
@@ -365,7 +378,20 @@
         category: ['Санкт-Петербург', 'Пригород', 'Карелия']
       }
     },
+    mounted() {
+      setTimeout(() => {this.show=!this.show},3500)
+      if(this.$route.query.id) {
+        return this.turEdited = this.$store.state.turs.find(t => t.id === this.$route.query.id)
+      }
+    },
     computed: {
+
+      compBtn() {
+        return this.$route.query.id ? 'Сохранить изменения' : 'Загрузить тур на сайт'
+      },
+      compAction() {
+        return this.$route.query.id ? 'Редактирование тура' : 'Создание тура'
+      },
       compitemListInput(){
         return this.itemListInput === null
       },
@@ -385,27 +411,32 @@
     },
     methods: {
       addNewTur(){
-        const id = Math.floor(Math.random() * 100) + 6 + ''
-        const newTur = {
-          id: id,
-          created: '',
-          date: '',
-          title: this.TurTitle,
-          group: this.group,
-          amount: this.amount,
-          description: this.description,
-          img: this.img,
-          type: this.type,
-          content: this.content
+        if(this.$route.query.id){
+          this.$store.commit('setEditTur', this.turEdited)
         }
-        this.$store.commit('setTurs', newTur)
+        else{
+          const id = Math.floor(Math.random() * 100) + 6 + ''
+        // const turEdited = {
+        //   id: id,
+        //   created: '',
+        //   date: '',
+        //   title: this.turEdited.title,
+        //   group: this.turEdited.group,
+        //   amount: this.turEdited.amount,
+        //   description: this.turEdited.description,
+        //   img: this.turEdited.img,
+        //   type: this.turEdited.type,
+        //   content: this.turEdited.content
+        // }
+        this.$store.commit('setTurs', {id,...this.turEdited})
+        }
       },
       addItemArray(){
         this.itemsArray.push(this.itemListInput)
         this.itemListInput = null
       },
       addComponent() {
-        this.content.push(
+        this.turEdited.content.push(
           {
             type: this.componentType,
             text: this.text,
@@ -415,31 +446,31 @@
             nameFoto: this.nameFoto
           }
         )
-        this.text = null
-        this.title = null
+        this.text = ''
+        this.title = ''
         this.itemsArray = []
-        this.foto = null
-        this.nameFoto = null
+        this.foto = ''
+        this.nameFoto = ''
       },
       deleteComponent(item){
-        const idx = this.content.indexOf(item)
-         this.content.splice(item, 1)
+        const idx = this.turEdited.content.indexOf(item)
+        this.turEdited.content.splice(item, 1)
       },
       MoveUpComponent(item){
-        const idx = this.content.indexOf(item)
-        const ar1 = this.content.slice(0, idx-1)
-        const ar2 = this.content.slice(idx, idx+1)
-        const ar3 = this.content.slice(idx-1, idx)
-        const ar4 = this.content.slice(idx+1)
-        this.content=[].concat(ar1,ar2,ar3,ar4)
+        const idx = this.turEdited.content.indexOf(item)
+        const ar1 = this.turEdited.content.slice(0, idx-1)
+        const ar2 = this.turEdited.content.slice(idx, idx+1)
+        const ar3 = this.turEdited.content.slice(idx-1, idx)
+        const ar4 = this.turEdited.content.slice(idx+1)
+        this.turEdited.content=[].concat(ar1,ar2,ar3,ar4)
       },
       MoveDownComponent(item){
-        const idx = this.content.indexOf(item)
-        const ar1 = this.content.slice(0, idx)
-        const ar2 = this.content.slice(idx, idx+1)
-        const ar3 = this.content.slice(idx+1, idx+2)
-        const ar4 = this.content.slice(idx+2)
-        this.content=[].concat(ar1,ar3,ar2,ar4)
+        const idx = this.turEdited.content.indexOf(item)
+        const ar1 = this.turEdited.content.slice(0, idx)
+        const ar2 = this.turEdited.content.slice(idx, idx+1)
+        const ar3 = this.turEdited.content.slice(idx+1, idx+2)
+        const ar4 = this.turEdited.content.slice(idx+2)
+        this.turEdited.content=[].concat(ar1,ar3,ar2,ar4)
       }
     },
   }

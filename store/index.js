@@ -1,4 +1,4 @@
-
+export const strict = false
 ////////////////state
 export const state = () => ({
   turs: [
@@ -87,6 +87,9 @@ export const getters = {
   getTurs(state) {
     return state.turs
   },
+//   getTurById(state, id){
+// console.log('getTurById', id);
+//   },
   isAuthenticated(state) {
     return state.auth.loggedIn; // auth object as default will be added in vuex state, when you initialize nuxt auth
   },
@@ -110,9 +113,20 @@ export const getters = {
   }
 };
 ////////////////mutation
-export const mutations = {
+export const mutations =
+{
+  setEditTur(state, editedTur){
+    const id = editedTur.id
+    console.log('editedTur.id-',id);
+    state.turs.splice(id, 1)
+
+    state.turs.push(editedTur)
+  },
   setTurs(state, newTur){
     state.turs.push(newTur)
+  },
+  deleteTur(state, id){
+    state.turs.splice(id, 1)
   },
 
   setFilteredTursRandom(state){
@@ -137,5 +151,6 @@ export const mutations = {
     state.dialog = !state.dialog
   }
 };
+
 
 

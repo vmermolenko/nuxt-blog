@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="content"
+    :items="compContent"
     sort-by="calories"
     class="elevation-1"
   >
@@ -10,29 +10,41 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>Все туры</v-toolbar-title>
+        <v-toolbar-title class="my-auto">Все туры</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
           vertical
         ></v-divider>
+        <v-btn
+          color="primary"
+          class=""
+        >
+        <v-icon
+          dark
+          left
+        >
+          mdi-plus-thick
+        </v-icon>
+        <NuxtLink :to="`admin/create`" class="white--text link"> Создать</NuxtLink>
+        </v-btn>
         <v-spacer></v-spacer>
 
         <v-btn
           color="primary"
-          class="mb-2"
+          class=""
         >
-        <NuxtLink :to="`admin/create`" class="white--text link"> Создать</NuxtLink>
+        <NuxtLink :to="`/`" class="white--text link"> Выйти </NuxtLink>
         </v-btn>
 
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card class="pa-5">
             <p class="text-center text-h6">
-               Удалить навсегда?
+              Удалить навсегда?
             </p>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red" text >да</v-btn>
+              <v-btn color="red" text @click="confirmDelete">да</v-btn>
               <v-btn color="blue darken-1" text @click="dialogDelete=!dialogDelete">нет</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -42,16 +54,18 @@
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
+
+        <v-icon
+          small
+          class="mr-2"
+          @click="editItem(item)"
+        >
+          mdi-pencil
+        </v-icon>
+
       <v-icon
         small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon
-        small
-        @click="dialogDelete=!dialogDelete"
+        @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>
@@ -78,10 +92,9 @@
       title : 'Админка'
       }
     },
-    created () {
-      this.initialize()
-    },
+
     data: () => ({
+      editedIndex: -1,
       dialogDelete: false,
       headers: [
           { text: 'Id', align: 'start', sortable: false, value: 'id'},
@@ -91,13 +104,26 @@
           { text: 'Стоимость экскурсии', value: 'amount' },
           { text: 'Действия', value: 'actions' },
         ],
-      content: [],
+
     }),
+    computed: {
+      compContent () {
+        return this.$store.state.turs
+      },
+    },
     methods: {
-      initialize () {
-        this.content = this.$store.state.turs
+      deleteItem(item){
+        this.editedIndex = this.compContent.indexOf(item)
+        this.dialogDelete=!this.dialogDelete
+      },
+      confirmDelete(){
+        this.$store.commit('deleteTur', this.editedIndex)
+        this.dialogDelete=!this.dialogDelete
+        this.editedIndex = -1
       },
       editItem (item) {
+        // this.editedIndex = this.content.indexOf(item)
+        this.$router.push(`admin/create?id=${item.id}`)
       },
     },
   }
