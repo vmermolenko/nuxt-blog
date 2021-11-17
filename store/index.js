@@ -115,11 +115,20 @@ export const getters = {
 ////////////////mutation
 export const mutations =
 {
-  setEditTur(state, editedTur){
+  setEditTour(state, editedTur){
     const id = editedTur.id
-    console.log('editedTur.id-',id);
-    state.turs.splice(id, 1)
+    //console.log('editedTur.id-',id);
+    // state.turs.splice(id, 1)
+    // state.turs.push(editedTur)
 
+    for (var i = 0; i < state.turs.length; i++) {
+      var cur = state.turs[i];
+      if (cur.id === id) {
+          state.turs.splice(i, 1);
+          break;
+      }
+    }
+    //
     state.turs.push(editedTur)
   },
   setTurs(state, newTur){

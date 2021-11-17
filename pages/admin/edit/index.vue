@@ -19,23 +19,23 @@
           >
             mdi-arrow-left
           </v-icon>
-            К списку туров
+            Назад
           </v-btn>
           <v-btn
           class="ml-5"
           color="primary"
-          @click="addNewTur"
+          @click="setEditTour"
           >
-            {{compBtn}}
+            Сохранить
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn
+          <!-- <v-btn
           color="primary"
           @click="$router.push('/')"
           >
             выйти
             <v-icon class="ml-2">mdi-export</v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-toolbar>
       </v-card>
     </v-row>
@@ -241,7 +241,8 @@
               <v-divider></v-divider>
               <v-row>
                 <v-col md="11">
-                  <component  :is="item.type"
+                  <component
+                    :is="item.type"
                     :text="item.text"
                     :foto="item.foto"
                     :nameFoto="item.nameFoto"
@@ -259,7 +260,7 @@
                         class="mt-1"
                         text
                         icon
-                        @click="MoveUpComponent(item)"
+                        @click="moveUpComponent(item)"
                         >
                         <v-icon color="primary" large>
                         mdi-chevron-up
@@ -273,7 +274,7 @@
                         class="mb-1"
                         text
                         icon
-                        @click="MoveDownComponent(item)"
+                        @click="moveDownComponent(item)"
                         >
                           <v-icon color="primary" large>
                           mdi-chevron-down
@@ -312,8 +313,8 @@
     auth : false,
     layout : 'admin',
     head() {
-        return {
-      title : 'Создание тура'
+      return {
+        title : 'Редактирование тура'
       }
     },
     data() {
@@ -371,24 +372,17 @@
             text: 'Фото400x711',
             value: 'constructor-foto400x711'
           }
-
-
-
-          ],
+        ],
         category: ['Санкт-Петербург', 'Пригород', 'Карелия']
       }
     },
     mounted() {
-      setTimeout(() => {this.show=!this.show},3500)
+      //setTimeout(() => {this.show=!this.show},3500)
       if(this.$route.query.id) {
         return this.turEdited = this.$store.state.turs.find(t => t.id === this.$route.query.id)
       }
     },
     computed: {
-
-      compBtn() {
-        return this.$route.query.id ? 'Сохранить изменения' : 'Загрузить тур на сайт'
-      },
       compAction() {
         return this.$route.query.id ? 'Редактирование тура' : 'Создание тура'
       },
@@ -410,9 +404,10 @@
 
     },
     methods: {
+      /*
       addNewTur(){
         if(this.$route.query.id){
-          this.$store.commit('setEditTur', this.turEdited)
+          this.$store.commit('setEditTour', this.turEdited)
         }
         else{
           const id = Math.floor(Math.random() * 100) + 6 + ''
@@ -430,6 +425,10 @@
         // }
         this.$store.commit('setTurs', {id,...this.turEdited})
         }
+      },
+      */
+      setEditTour() {
+        this.$store.commit('setEditTour', this.turEdited)
       },
       addItemArray(){
         this.itemsArray.push(this.itemListInput)
@@ -456,7 +455,7 @@
         const idx = this.turEdited.content.indexOf(item)
         this.turEdited.content.splice(item, 1)
       },
-      MoveUpComponent(item){
+      moveUpComponent(item){
         const idx = this.turEdited.content.indexOf(item)
         const ar1 = this.turEdited.content.slice(0, idx-1)
         const ar2 = this.turEdited.content.slice(idx, idx+1)
@@ -464,7 +463,7 @@
         const ar4 = this.turEdited.content.slice(idx+1)
         this.turEdited.content=[].concat(ar1,ar2,ar3,ar4)
       },
-      MoveDownComponent(item){
+      moveDownComponent(item){
         const idx = this.turEdited.content.indexOf(item)
         const ar1 = this.turEdited.content.slice(0, idx)
         const ar2 = this.turEdited.content.slice(idx, idx+1)

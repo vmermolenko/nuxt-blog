@@ -18,7 +18,8 @@
         ></v-divider>
         <v-btn
           color="primary"
-          class=""
+          class="white--text link"
+          @click="dialogCreate=!dialogCreate"
         >
         <v-icon
           dark
@@ -26,7 +27,7 @@
         >
           mdi-plus-thick
         </v-icon>
-        <NuxtLink :to="`admin/create`" class="white--text link"> Создать</NuxtLink>
+          Создать
         </v-btn>
         <v-spacer></v-spacer>
 
@@ -34,7 +35,7 @@
           color="primary"
           class=""
         >
-        <NuxtLink :to="`/`" class="white--text link"> Выйти </NuxtLink>
+        <NuxtLink to='/' class="white--text link"> Выйти </NuxtLink>
         </v-btn>
 
         <v-dialog v-model="dialogDelete" max-width="500px">
@@ -46,6 +47,19 @@
               <v-spacer></v-spacer>
               <v-btn color="red" text @click="confirmDelete">да</v-btn>
               <v-btn color="blue darken-1" text @click="dialogDelete=!dialogDelete">нет</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogCreate" max-width="500px">
+          <v-card class="pa-5">
+            <p class="text-center text-h6">
+              Создать новый тур?
+            </p>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="gren" text @click="confirmCreate">да</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogCreate=!dialogCreate">нет</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -96,6 +110,7 @@
     data: () => ({
       editedIndex: -1,
       dialogDelete: false,
+      dialogCreate: false,
       headers: [
           { text: 'Id', align: 'start', sortable: false, value: 'id'},
           { text: 'Дата создания', value: 'created' },
@@ -104,7 +119,6 @@
           { text: 'Стоимость экскурсии', value: 'amount' },
           { text: 'Действия', value: 'actions' },
         ],
-
     }),
     computed: {
       compContent () {
@@ -112,6 +126,10 @@
       },
     },
     methods: {
+      confirmCreate(){
+        //this.$store.commit('createNewTur')
+        this.dialogCreate=!this.dialogCreate
+      },
       deleteItem(item){
         this.editedIndex = this.compContent.indexOf(item)
         this.dialogDelete=!this.dialogDelete
@@ -123,7 +141,7 @@
       },
       editItem (item) {
         // this.editedIndex = this.content.indexOf(item)
-        this.$router.push(`admin/create?id=${item.id}`)
+        this.$router.push(`/admin/edit?id=${item.id}`)
       },
     },
   }
