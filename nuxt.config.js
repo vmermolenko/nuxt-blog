@@ -71,6 +71,7 @@ export default {
     }
   },
   */
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["vee-validate/dist/rules"],
@@ -90,20 +91,22 @@ export default {
           type: "",
           maxAge: 1800
         },
+        /*
         user: {
           property: "user",
           autoFetch: true
-        },
+        }
+        ,*/
         refreshToken: {  // it sends request automatically when the access token expires, and its expire time has set on the Back-end and does not need to we set it here, because is useless
           property: "refreshToken",
           data: "refresh_token",
           maxAge: 60 * 60 * 24 * 30
         },
         endpoints: {
-          login: { url: "/api/auth/signin", method: "post" },
-          refresh: { url: "/api/auth/refreshtoken", method: "post" },
+          login: { url: "/api/auth/signin", method: "post", propertyName: 'accessToken' },
+          refresh: { url: "/api/auth/refreshtoken", method: "post", propertyName: 'refreshToken'},
           logout: false, //  we don't have an endpoint for our logout in our API and we just remove the token from localstorage
-          user: { url: "/api/auth/signin", method: "post" }
+          user: { url: "/api/auth/user", method: "get",  propertyName: 'username' }
         }
       }
     }

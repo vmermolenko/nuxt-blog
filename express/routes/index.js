@@ -28,7 +28,7 @@ const app = express();
 //const PORT = process.env.PORT || 8090;
 
 var corsOptions = {
-  origin: "http://localhost:8080"
+  origin: process.env.BASE_URL || "http://localhost:8080"
 };
 
 app.use(cors(corsOptions));

@@ -17,6 +17,7 @@
           v-model="loginData.password"
           class="form-control"
           id="password"
+          autocomplete="on"
         />
       </div>
       <button type="submit" class="btn btn-primary w-100">login</button>
@@ -39,7 +40,7 @@ export default {
         let response = await this.$auth.loginWith("local", {
           data: this.loginData
         });
-        //console.log(response);
+        console.log(response);
         //this.$router.push("/admin/");
         this.$router.push({ path: '/admin/'});
       } catch (err) {
