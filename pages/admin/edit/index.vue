@@ -319,7 +319,7 @@
   export default {
     async asyncData({ query, redirect }) {
     const turs = await fetch(
-      'http://localhost:3000/api/turs/all'
+      '/api/turs/all'
     ).then((res) => res.json())
 
     const tour = turs.find(t => t.id == query.id)
