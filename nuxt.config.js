@@ -33,7 +33,7 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     treeShake: true
   },
-  plugins: ['~plugins/vuetify.js', '~plugins/filters.js'],
+  plugins: ['~plugins/vuetify.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -57,6 +57,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
+    //debug: true,
     baseURL: "http://localhost:3000/"  // here set your API url
   },
   /*

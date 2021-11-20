@@ -15,7 +15,7 @@
         <fixed-panel ></fixed-panel>
         </v-col>
 
-        <!-- list turs -->
+        <!-- list tours -->
 
         <v-col md="9">
           <v-row >
@@ -25,7 +25,7 @@
                 height="100%"
               >
                 <v-card-text font-size=8px class="pa-1 pl-4 white--text text-no-wrap primary">
-                    {{tur.type}}
+                    {{tur.typetour}}
                 </v-card-text>
                 <v-img
                 contain
@@ -39,7 +39,7 @@
                 </v-card-title>
 
                 <v-card-text font-size=8px class="black--text" style="align-items: center">
-                  <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : {{tur.group}}
+                  <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : {{tur.team}}
                 </v-card-text>
 
                 <v-card-text font-size=8px class=" black--text pt-0">
@@ -49,7 +49,6 @@
                 <v-card-text align="justify" style="height:100px" class="py-0">
                   {{tur.description}}
                 </v-card-text>
-<!-- @click="$store.commit('setFilteredTursRandom', filterTurs)" -->
                 <v-card-actions class="a justify-center">
                   <v-btn class="mb-5"
                     rounded
@@ -57,7 +56,7 @@
                     text
 
                   >
-                    <NuxtLink :to="`turs/${tur.id}`" class="link">Посмотреть тур</NuxtLink>
+                    <NuxtLink :to="`tours/${tur.id}`" class="link">Посмотреть тур</NuxtLink>
                   </v-btn>
                 </v-card-actions>
 
@@ -81,14 +80,15 @@
 export default {
   auth : false,
   layout : 'default',
-  head :{
-    title : 'Главная'
-  },
+  // head() {
+  //   return {
+  //     title : 'Главная'
+  //   }
+  // },
   name: 'House',
   data() {
     return {
-      drawer: false,
-      turs: []
+      drawer: false
     }
   },
   methods: {
@@ -96,9 +96,8 @@ export default {
       this.$vuetify.goTo(0)
     }
   },
-  mounted() {
-    this.turs = this.$store.getters.getTurs
-    this.$store.commit('setTurForZakaz', '')
+  async mounted() {
+    await this.$store.dispatch('getAllTours')
   },
   computed: {
     turForZakaz(){
@@ -110,9 +109,9 @@ export default {
     },
     filterTurs() {
       if (this.getFilters.indexOf('all')  >= 0 ) {
-        return this.turs
+        return this.$store.getters.getTours
       }
-      return this.turs.filter(t => this.getFilters.includes(t.type))
+      return this.$store.getters.getTours.filter(t => this.getFilters.includes(t.typetour))
     },
 
   }

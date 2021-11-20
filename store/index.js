@@ -1,6 +1,7 @@
 export const strict = false
 ////////////////state
 export const state = () => ({
+  /*
   turs: [
     {
       id: '1',
@@ -76,16 +77,17 @@ export const state = () => ({
     }
 
   ],
+  */
+  tours: [],
   SelectedCategory: ['all'],
-  dialog: false,
   turForZakaz: '',
   filteredTurs: [],
   filteredTursRandom: []
 });
 ////////////////getters
 export const getters = {
-  getTurs(state) {
-    return state.turs
+  getTours(state) {
+    return state.tours
   },
 //   getTurById(state, id){
 // console.log('getTurById', id);
@@ -98,9 +100,6 @@ export const getters = {
   },
   SelectedCategory(state) {
     return state.SelectedCategory
-  },
-  getDialog(state) {
-    return state.dialog
   },
   getTurForZakaz(state) {
     return state.turForZakaz
@@ -115,31 +114,31 @@ export const getters = {
 ////////////////mutation
 export const mutations =
 {
-  setEditTour(state, editedTur){
-    const id = editedTur.id
-    //console.log('editedTur.id-',id);
-    // state.turs.splice(id, 1)
-    // state.turs.push(editedTur)
-
-    for (var i = 0; i < state.turs.length; i++) {
-      var cur = state.turs[i];
-      if (cur.id === id) {
-          state.turs.splice(i, 1);
+  setEditTour(state, editedTour){
+    for (var i = 0; i < state.tours.length; i++) {
+      var cur = state.tours[i];
+      if (cur.id === editedTour.id) {
+          state.tours.splice(i, 1);
           break;
       }
     }
-    //
-    state.turs.push(editedTur)
+    state.tours.push(editedTour)
   },
   setTurs(state, newTur){
-    state.turs.push(newTur)
+    state.tours.push(newTur)
   },
   deleteTur(state, id){
-    state.turs.splice(id, 1)
+    for (var i = 0; i < state.tours.length; i++) {
+      var cur = state.turs[i];
+      if (cur.id === id) {
+          state.tours.splice(i, 1);
+          break;
+      }
+    }
   },
 
   setFilteredTursRandom(state){
-    const arr = Array.of(...this.getters.getTurs) || []
+    const arr = Array.of(...this.getters.getTours) || []
     const randomItems = []
 
       for(let i = 0; i < 4 ; i++){
@@ -156,10 +155,81 @@ export const mutations =
   setFilterByCategory(state, newArray){
     state.SelectedCategory = newArray
   },
-  setDialog(state) {
-    state.dialog = !state.dialog
+  updateTours(state, tours) {
+    state.tours = tours
   }
 };
+////////////////actions
+export const actions =
+{
+  getToursActions(state, newTur){
+    state.tours.push(newTur)
+  },
+  async getAllTours({ commit }) {
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const gettours = await this.$axios.$get('/api/turs/all', headers)
+    .then((response) => {
+        console.log('response.', response);
+        commit('updateTours', response)
+    }).catch((error) => {
+        console.warn('error: ', error);
+    })
+  },
+  async getTourById({ commit }) {
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const gettours = await this.$axios.$get('/api/turs/all', headers)
+    .then((response) => {
+        console.log('response.', response);
+        commit('updateTours', response)
+    }).catch((error) => {
+        console.warn('error: ', error);
+    })
+  },
+  async setTourCreate({dispatch}) {
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const gettours = await this.$axios.$post('/api/turs', headers)
+    .then((response) => {
+        console.log('response.', response)
+    }).catch((error) => {
+        console.warn('error: ', error);
+    })
 
+    await dispatch('getAllTours')
+  },
+  async setTourDelete({dispatch}, id) {
+    console.log('setTourDelete ' , id);
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const gettours = await this.$axios.$delete(`/api/turs/${id}` , headers)
+    .then((response) => {
+        console.log('response.', response)
+    }).catch((error) => {
+        console.warn('error: ', error);
+    })
+
+    await dispatch('getAllTours')
+  },
+  async setTourUpdate({dispatch}, payload) {
+    console.log('setTourUpdate:  ' , payload);
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const gettours = await this.$axios.$put(`/api/turs/${payload.id}`, payload,  headers)
+    .then((response) => {
+        console.log('response.', response)
+    }).catch((error) => {
+        console.warn('error: ', error);
+    })
+
+    //await dispatch('getAllTours')
+  },
+};
 
 

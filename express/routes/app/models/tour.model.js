@@ -1,28 +1,40 @@
 module.exports = (sequelize, Sequelize) => {
   const Tour = sequelize.define("tours", {
     datestart: {
-      type: Sequelize.DATEONLY
+      type: Sequelize.DATEONLY,
+      defaultValue: new Date()
     },
     title: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: ''
     },
     team: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: ''
     },
     amount: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      defaultValue: 0
     },
     description: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: ''
     },
     img: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: ''
     },
     typetour: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: ''
     },
     typerus: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: ''
+    },
+    content: {
+      type: Sequelize.JSON,
+      defaultValue: [],
     },
 
   });

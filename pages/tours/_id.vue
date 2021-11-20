@@ -6,24 +6,25 @@
         <v-row>
             <v-col md="12"  >
               <v-card elevation="0" >
-                <p class="text-h5 font-weight-bold" style="text-align: center">{{tur.title}}</p>
+                <p class="text-h5 font-weight-bold" style="text-align: center">{{ tur.title }}</p>
               <v-img :src="tur.img"  width="100%" contain class="mb-5">
               </v-img>
 
-                <component v-for="item in tur.content" :key="item.id" :is="item.type"
-                :text="item.text"
-                :foto="item.foto"
-                :nameFoto="item.nameFoto"
-                :title="item.title"
-                :items="item.items"
-                ></component>
-
+                <div v-if="tur.content">
+                  <component v-for="item in tur.content" :key="item.id" :is="item.type"
+                  :text="item.text"
+                  :foto="item.foto"
+                  :nameFoto="item.nameFoto"
+                  :title="item.title"
+                  :items="item.items"
+                  ></component>
+                </div>
                 <v-card-text font-size=8px class="black--text" style="align-items: center">
-                  <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : {{tur.group}}
+                  <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : {{ tur.team }}
                 </v-card-text>
 
                 <v-card-text font-size=8px class=" black--text pt-0">
-                <v-icon class="mx-2" color="primary">mdi-currency-usd</v-icon> : {{tur.amount}}
+                <v-icon class="mx-2" color="primary">mdi-currency-usd</v-icon> : {{ tur.amount }}
                 </v-card-text>
 
                 <v-divider
@@ -58,7 +59,7 @@
                 height="100%"
               >
                 <v-card-text font-size=8px class="pa-1 pl-4 white--text text-no-wrap primary">
-                    {{turRandom.type}}
+                    {{turRandom.typetour}}
                 </v-card-text>
                 <v-img
                 contain
@@ -71,12 +72,11 @@
                   {{turRandom.title}}
                 </v-card-text>
 
-                <v-card-actions class="a justify-center" @click="$router.push(`/turs/${turRandom.id}`)">
+                <v-card-actions class="a justify-center" @click="$router.push(`/tours/${turRandom.id}`)">
                   <v-btn class="mb-5"
                     rounded
                     color="primary"
                     text
-
                   >
                     Посмотреть тур
                   </v-btn>
@@ -105,31 +105,50 @@
 
 <script>
 export default {
+  async asyncData({ params, redirect }) {
+    const turs = await fetch(
+      '/api/turs/all'
+    ).then((res) => res.json())
+
+    const tour = turs.find(t => t.id == params.id)
+    console.log('tour ' , tour);
+    if (tour) {
+      return {
+        turs: turs,
+        tur: tour
+      }
+    } else {
+      redirect('/')
+    }
+  },
+
   auth : false,
   layout : 'default',
   head() {
-      return {
-    title : this.tur.title
+    return {
+      title : this.tur.title
     }
   },
   data() {
     return {
-      id: '',
       tur: {
-        content: [
-      ],
-      },
-
-
+        id : 0,
+        datestart : '',
+        title: '',
+        team: '',
+        amount: 0,
+        description: '',
+        img: '',
+        typetour: '',
+        typerus:'',
+        content: {}
+      }
     }
   },
   computed: {
-    // selectedCategoryComp(){
-    //   return this.$store.getters.SelectedCategory
-    // },
     filteredTursRandomComp() {
       return this.$store.getters.getFilteredTursRandom
-    },
+    }
   },
   methods: {
     clickZakaz() {
@@ -139,17 +158,25 @@ export default {
       this.$vuetify.goTo(0)
     }
   },
+  /*
   mounted() {
+    const id = $nuxt._route.params.id
+    console.log('id:', id);
+    this.tur = this.$store.getters.tours.filter(t => t.id === id)
+    console.log('tur:', this.tur);
+    this.content = this.tur.content
+    console.log('content:', this.content);
 
-
-
-    this.id = $nuxt._route.params.id
-
-    this.tur = this.$store.state.turs.find(t => t.id === this.id)
-    this.content=this.tur.content
-    console.log(this.tur);
     this.$store.commit('setTurForZakaz', this.tur.title)
     this.$store.commit('setFilteredTursRandom')
+  },
+  */
+  mounted() {
+    //this.$store.dispatch('getAllTours')
+    //let id = this.$route.params.id
+    //this.tur = this.$store.getters.getTours.find(t => t.id == id)
+  },
+  created(){
 
   }
 }

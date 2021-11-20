@@ -40,12 +40,12 @@
 
     watch: {
       search () {
-        this.entries = this.$store.state.turs
+        this.entries = this.$store.getters.getTours
       },
       model(val) {
-        const tur = this.$store.state.turs.filter(t => t.title === val)
+        const tur = this.$store.getters.getTours.filter(t => t.title === val)
         const turId = tur[0].id
-        this.$router.push(`turs/${turId}`)
+        this.$router.push(`tours/${turId}`)
       }
     },
   }

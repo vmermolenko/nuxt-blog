@@ -29,13 +29,6 @@
             Сохранить
           </v-btn>
           <v-spacer></v-spacer>
-          <!-- <v-btn
-          color="primary"
-          @click="$router.push('/')"
-          >
-            выйти
-            <v-icon class="ml-2">mdi-export</v-icon>
-          </v-btn> -->
         </v-toolbar>
       </v-card>
     </v-row>
@@ -68,14 +61,21 @@
                   <!-- Фото foto-->
                   <v-row class="mx-2 mt-0" v-if="compFoto">
                     <v-col md="12" >
-                    <v-file-input
+                    <!-- <v-file-input
 
                       class="mt-0"
                       accept="image/png, image/jpeg, image/bmp"
                       placeholder=""
                       prepend-icon="mdi-camera"
                       label="Фото"
-                    ></v-file-input>
+                    ></v-file-input> -->
+                      <v-img :src="foto" contain ></v-img>
+                      <v-text-field
+                        v-model="foto"
+                        class="pt-0"
+                        label="URL Фото"
+                        hide-details="auto"
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                   <!-- Название фото nameFoto-->
@@ -174,14 +174,21 @@
                     ></v-text-field>
                   </v-col>
                   <v-col md="4" class="pb-0 pt-1">
-                    <v-file-input
+                    <v-text-field
+                      v-model="turEdited.img"
+                      class="pt-0"
+                      label="Главное фото"
+                      hide-details="auto"
+                    ></v-text-field>
+                    <!-- <v-file-input
 
                       class="mt-0"
                       accept="image/png, image/jpeg, image/bmp"
                       placeholder=""
                       prepend-icon="mdi-camera"
                       label="Главное фото"
-                    ></v-file-input>
+                    ></v-file-input> -->
+                     <v-img :src="turEdited.img" contain ></v-img>
                   </v-col>
                 </v-row>
                 <!-- краткое описание тура 230символов-->
@@ -201,7 +208,7 @@
                 <v-row class="mx-2">
                   <v-col md="4" class="py-0">
                     <v-text-field
-                      v-model="turEdited.group"
+                      v-model="turEdited.team"
                       label="Группа"
                       hide-details="auto"
                     ></v-text-field>
@@ -215,7 +222,7 @@
                   </v-col>
                   <v-col md="4" class="py-0">
                     <v-select
-                      v-model="turEdited.type"
+                      v-model="turEdited.typetour"
                       class="mx-2"
                       :items="category"
                       label="Выбор категории"
@@ -233,7 +240,7 @@
             <v-card-title class="py-0">Контент тура <v-spacer></v-spacer><v-btn color="primary" text><span style="font-size:0.8em">предварительный просмотр</span> </v-btn></v-card-title>
             <v-card-text class="py-0">Для заполнения выберите компонент</v-card-text>
           </v-card>
-          <v-card elevation="4" class="pa-10 text-center" v-if="turEdited.content.length===0" height="300">
+          <v-card elevation="4" class="pa-10 text-center" v-if="getLength(turEdited.content) === 0" height="300">
             <span class="text-h6">Пусто. Вставьте первый компонент</span>
           </v-card>
           <v-card elevation="4" class="pa-3" v-else>
@@ -270,7 +277,7 @@
 
                       <v-row>
                         <v-btn
-                        :disabled="index===turEdited.content.length-1"
+                        :disabled="index=== getLength(turEdited.content)-1"
                         class="mb-1"
                         text
                         icon
@@ -310,6 +317,22 @@
 </template>
 <script>
   export default {
+    async asyncData({ query, redirect }) {
+    const turs = await fetch(
+      'http://localhost:3000/api/turs/all'
+    ).then((res) => res.json())
+
+    const tour = turs.find(t => t.id == query.id)
+      console.log('tour ' , tour);
+      if (tour) {
+        return {
+          turs: turs,
+          turEdited: tour
+        }
+      } else {
+        redirect('/admin')
+      }
+    },
     auth : false,
     layout : 'admin',
     head() {
@@ -322,13 +345,16 @@
         show: true,
         // tur
         turEdited: {
+          id: 0,
+          datestart: '',
           title: '',
-          group: '',
-          amount: '',
+          team: '',
+          amount: 0,
           description: '',
           img: '',
-          type: '',
-          content: [],
+          typetour: '',
+          typerus: '',
+          content: []
         },
         rules: [v => v.length <= 230 || 'Максимум 230 символов'],
         value: '',
@@ -377,9 +403,8 @@
       }
     },
     mounted() {
-      //setTimeout(() => {this.show=!this.show},3500)
       if(this.$route.query.id) {
-        return this.turEdited = this.$store.state.turs.find(t => t.id === this.$route.query.id)
+        //return this.turEdited = this.$store.getters.getTours.find(t => t.id === this.$route.query.id)
       }
     },
     computed: {
@@ -400,41 +425,25 @@
       },
 
     },
-    watch: {
-
-    },
     methods: {
-      /*
-      addNewTur(){
-        if(this.$route.query.id){
-          this.$store.commit('setEditTour', this.turEdited)
+      getLength(val){
+        console.log('val: ', val);
+        if (val === null){
+          return 0
         }
-        else{
-          const id = Math.floor(Math.random() * 100) + 6 + ''
-        // const turEdited = {
-        //   id: id,
-        //   created: '',
-        //   date: '',
-        //   title: this.turEdited.title,
-        //   group: this.turEdited.group,
-        //   amount: this.turEdited.amount,
-        //   description: this.turEdited.description,
-        //   img: this.turEdited.img,
-        //   type: this.turEdited.type,
-        //   content: this.turEdited.content
-        // }
-        this.$store.commit('setTurs', {id,...this.turEdited})
-        }
+        return val.length
       },
-      */
       setEditTour() {
-        this.$store.commit('setEditTour', this.turEdited)
+        this.$store.dispatch('setTourUpdate', this.turEdited)
       },
       addItemArray(){
         this.itemsArray.push(this.itemListInput)
         this.itemListInput = null
       },
       addComponent() {
+        if (this.turEdited.content === null) {
+          this.turEdited.content = []
+        }
         this.turEdited.content.push(
           {
             type: this.componentType,

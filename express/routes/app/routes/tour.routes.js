@@ -9,6 +9,10 @@ module.exports = function(app) {
     // );
     next();
   });
-  app.get("/api/turs/all", controller.getTursAll);
 
+  app.post("/api/turs", controller.setTour);
+  app.get("/api/turs/all", controller.getTursAll);
+  app.get("/api/turs/:id", controller.getTursById);
+  app.delete("/api/turs/:id", controller.getTursDeleteById);
+  app.put("/api/turs/:id", controller.getTursUpdateById);
 };

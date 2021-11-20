@@ -2,7 +2,7 @@
 <div>
   <v-row justify="center">
     <v-dialog
-      v-model="dialogComp"
+      v-model="dialog"
       max-width="600px"
     >
       <v-card>
@@ -155,41 +155,47 @@
 
 
   export default {
-      components: {
+    components: {
       ValidationProvider,
       ValidationObserver,
     },
     emits: ['showAlert'],
+    props: ['value'],
     data: () => ({
+      //dialog: false,
       menu2: false,
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       name: '',
       email: '',
       form: {},
+      selectComp: {}
     }),
     computed: {
-      dialogComp() {
-        return this.$store.getters.getDialog
+      dialog: {
+        get() {
+          return this.value;
+        },
+        set(val) {
+          this.$emit('input', val);
+        }
       },
       tursComp() {
         const titles = []
-        const turs = this.$store.state.turs.forEach(t => {
+        const turs = this.$store.getters.getTours.forEach(t => {
           titles.push(t.title)
         });
 
         return titles
-      },
-      selectComp(){
-        return this.$store.getters.getTurForZakaz
       }
-
-    },
-    mounted(){
+      // },
+      // selectComp(){
+      //   return this.$store.getters.getTurForZakaz
+      // }
 
     },
     methods: {
       closeDialog() {
-        this.$store.commit('setDialog')
+        this.dialog = !this.dialog
       },
       async submit () {
 
@@ -202,10 +208,11 @@
             email: this.email
           }
 
-          this.$store.commit('setDialog')
+          this.dialog = !this.dialog
+          //this.$store.commit('setDialog')
           this.$emit('showAlert')
 
-          console.log('отправка формы ',this.form);
+          //console.log('отправка формы ',this.form);
         }
 
       },

@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title class="my-auto">Все туры</v-toolbar-title>
+        <v-toolbar-title class="my-auto" @click="getAllTours">Все туры</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -88,7 +88,7 @@
     <template v-slot:no-data>
       <v-btn
         color="primary"
-        @click="initialize"
+        @click="getAllTours"
       >
         Перезагрузить
       </v-btn>
@@ -99,45 +99,69 @@
 
 <script>
   export default {
-    auth : false,
+    auth : true,
     layout : 'admin',
     head() {
         return {
       title : 'Админка'
       }
     },
-
     data: () => ({
+      //tours: [],
       editedIndex: -1,
+      deleteId: -1,
       dialogDelete: false,
       dialogCreate: false,
       headers: [
           { text: 'Id', align: 'start', sortable: false, value: 'id'},
-          { text: 'Дата создания', value: 'created' },
+          { text: 'Дата создания', value: 'datestart' },
           { text: 'Название тура', value: 'title' },
-          { text: 'Группа', value: 'group' },
+          { text: 'Группа', value: 'team' },
           { text: 'Стоимость экскурсии', value: 'amount' },
           { text: 'Действия', value: 'actions' },
         ],
     }),
     computed: {
       compContent () {
-        return this.$store.state.turs
+        return this.$store.state.tours
       },
     },
     methods: {
+      async getAllTours() {
+        this.$store.dispatch('getAllTours')
+      },
+      async fetchSomethingDelete() {
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        const tours = await this.$axios.$get('/api/turs/all', headers)
+        .then((response) => {
+            console.log('response.', response);
+            this.tours = response
+            console.log('tours: ', this.tours);
+        }).catch((error) => {
+            console.warn('error');
+        })
+        //this.tours = tours
+
+      },
       confirmCreate(){
         //this.$store.commit('createNewTur')
+        this.$store.dispatch('setTourCreate')
         this.dialogCreate=!this.dialogCreate
       },
       deleteItem(item){
-        this.editedIndex = this.compContent.indexOf(item)
+        console.log('deleteItem:' , item);
+        this.deleteId = item.id
         this.dialogDelete=!this.dialogDelete
       },
       confirmDelete(){
-        this.$store.commit('deleteTur', this.editedIndex)
+
+        const id = this.deleteId
+        console.log('id: ',id);
+        this.$store.dispatch('setTourDelete', id )
+        this.deleteId = -1
         this.dialogDelete=!this.dialogDelete
-        this.editedIndex = -1
       },
       editItem (item) {
         // this.editedIndex = this.content.indexOf(item)
