@@ -56,11 +56,16 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  // axios: {
+  //   //debug: true,
+  //   baseURL: "http://localhost:3000/"  // here set your API url
+  // },
   axios: {
     //debug: true,
-    baseURL: "http://localhost:3000/"  // here set your API url
+    baseURL: process.env.NODE_ENV === 'dev'
+    ? 'http://localhost:3000'
+    : 'https://my-domain.netlify.app'
   },
-
   publicRuntimeConfig: {
     axios: {
       browserBaseURL: process.env.BROWSER_BASE_URL
