@@ -64,7 +64,7 @@ export default {
     //debug: true,
     baseURL: process.env.NODE_ENV === 'dev'
     ? 'http://localhost:3000'
-    : 'https://my-domain.netlify.app'
+    : 'https://nuxt-blog2021.herokuapp.com/'
   },
   publicRuntimeConfig: {
     axios: {
