@@ -99,29 +99,30 @@
         <v-icon dark>mdi-chevron-up</v-icon>
       </v-btn>
     </v-app>
-
   </div>
 </template>
 
 <script>
 export default {
+  /*
   async asyncData({ params, redirect }) {
-    const turs = await fetch(
-      '/api/turs/all'
-    ).then((res) => res.json())
+
+    let url = process.env.baseURL + '/api/turs/all'
+
+    const turs = await fetch(url).then((res) => res.json())
 
     const tour = turs.find(t => t.id == params.id)
-    console.log('tour ' , tour);
+
     if (tour) {
       return {
         turs: turs,
-        tur: tour
+        tur2: tour
       }
     } else {
       redirect('/')
     }
   },
-
+ */
   auth : false,
   layout : 'default',
   head() {
@@ -146,6 +147,11 @@ export default {
     }
   },
   computed: {
+
+    // tur5(){
+    //   console.log(this.$store.getters.getTours.find(t => t.id ==  this.$route.params.id));
+    //   return this.$store.getters.getTours.find(t => t.id ==  this.$route.params.id)
+    // },
     filteredTursRandomComp() {
       return this.$store.getters.getFilteredTursRandom
     }
@@ -158,27 +164,13 @@ export default {
       this.$vuetify.goTo(0)
     }
   },
-  /*
-  mounted() {
-    const id = $nuxt._route.params.id
-    console.log('id:', id);
-    this.tur = this.$store.getters.tours.filter(t => t.id === id)
-    console.log('tur:', this.tur);
-    this.content = this.tur.content
-    console.log('content:', this.content);
+  async mounted() {
+    await this.$store.dispatch('getAllTours')
+    this.tur = this.$store.getters.getTours.find(t => t.id ==  this.$route.params.id)
 
     this.$store.commit('setTurForZakaz', this.tur.title)
     this.$store.commit('setFilteredTursRandom')
   },
-  */
-  mounted() {
-    //this.$store.dispatch('getAllTours')
-    //let id = this.$route.params.id
-    //this.tur = this.$store.getters.getTours.find(t => t.id == id)
-  },
-  created(){
-
-  }
 }
 </script>
 

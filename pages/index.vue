@@ -80,11 +80,11 @@
 export default {
   auth : false,
   layout : 'default',
-  // head() {
-  //   return {
-  //     title : 'Главная'
-  //   }
-  // },
+  head() {
+    return {
+      title : 'Главная'
+    }
+  },
   name: 'House',
   data() {
     return {

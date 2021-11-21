@@ -323,7 +323,7 @@
     ).then((res) => res.json())
 
     const tour = turs.find(t => t.id == query.id)
-      console.log('tour ' , tour);
+      //console.log('tour ' , tour);
       if (tour) {
         return {
           turs: turs,
@@ -427,7 +427,7 @@
     },
     methods: {
       getLength(val){
-        console.log('val: ', val);
+        //console.log('val: ', val);
         if (val === null){
           return 0
         }

@@ -54,17 +54,19 @@ export default {
     'nuxt-express-module',
     '@nuxtjs/auth-next',
   ],
-
+  env: {
+    //baseURL: ["https://nuxt-blog2021.herokuapp.com", "http://localhost:3000"]
+    baseURL: "https://nuxt-blog2021.herokuapp.com"
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  // axios: {
-  //   //debug: true,
-  //   baseURL: "http://localhost:3000/"  // here set your API url
-  // },
   axios: {
-    //debug: true,
+    baseURL: process.env.baseURL  // here set your API url
+  },
+  /*
+  axios: {
     baseURL: process.env.NODE_ENV === 'dev'
     ? 'http://localhost:3000'
-    : 'https://nuxt-blog2021.herokuapp.com/'
+    : 'https://nuxt-blog2021.herokuapp.com'
   },
   publicRuntimeConfig: {
     axios: {
@@ -76,8 +78,7 @@ export default {
       baseURL: process.env.BASE_URL
     }
   },
-
-
+  */
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["vee-validate/dist/rules"],
