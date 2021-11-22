@@ -62,7 +62,7 @@ export default {
   axios: {
     baseURL: process.env.baseURL  // here set your API url
   },
-  /*
+
   axios: {
     baseURL: process.env.NODE_ENV === 'dev'
     ? 'http://localhost:3000'
@@ -78,7 +78,7 @@ export default {
       baseURL: process.env.BASE_URL
     }
   },
-  */
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["vee-validate/dist/rules"],
