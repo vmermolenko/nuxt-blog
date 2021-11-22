@@ -3,7 +3,7 @@
     <v-divider class="mb-5 mt-5"></v-divider>
     <v-app>
       <v-container>
-        <v-row>
+        <v-row v-if="tur.title !== ''">
             <v-col md="12"  >
               <v-card elevation="0" >
                 <p class="text-h5 font-weight-bold" style="text-align: center">{{ tur.title }}</p>
@@ -166,7 +166,15 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('getAllTours')
-    this.tur = this.$store.getters.getTours.find(t => t.id ==  this.$route.params.id)
+
+    const tour = this.$store.getters.getTours.find(t => t.id ==  this.$route.params.id)
+
+
+    if (tour) {
+      this.tur = tour
+    } else {
+      this.$router.push('/')
+    }
 
     this.$store.commit('setTurForZakaz', this.tur.title)
     this.$store.commit('setFilteredTursRandom')
