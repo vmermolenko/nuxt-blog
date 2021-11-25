@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-5">
+  <div class="mb-5 ml-10">
     <p class="text-h6 mb-2">
       {{title}}
     </p>

@@ -5,7 +5,6 @@ export const state = () => ({
   SelectedCategory: ['all'],
   turForZakaz: '',
   filteredTurs: [],
-  filteredTursRandom: []
 });
 ////////////////getters
 export const getters = {
@@ -27,9 +26,7 @@ export const getters = {
   getFilteredTurs(state){
     return state.filteredTurs
   },
-  getFilteredTursRandom(state){
-    return state.filteredTursRandom
-  }
+
 };
 ////////////////mutation
 export const mutations =
@@ -55,19 +52,6 @@ export const mutations =
           break;
       }
     }
-  },
-
-  setFilteredTursRandom(state){
-    const arr = Array.of(...this.getters.getTours) || []
-    const randomItems = []
-
-      for(let i = 0; i < 4 ; i++){
-        const item = arr[Math.floor(Math.random() * arr.length)]
-        randomItems.push(item || {})
-        arr.splice(arr.indexOf(item), 1)
-      }
-    state.filteredTursRandom = randomItems
-
   },
   setTurForZakaz(state, title){
     state.turForZakaz = title

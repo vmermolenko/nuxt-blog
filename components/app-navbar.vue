@@ -16,19 +16,19 @@
       contain
     ></v-img>
     <!-- company name -->
-    <v-toolbar-title class="black--text ml-3 text-h5 d-flex align-center">
+    <v-toolbar-title class="black--text ml-2 text-h5 d-flex align-center">
       Life Is Travel
     </v-toolbar-title>
   </nuxt-link>
 
   <v-spacer></v-spacer>
   <v-icon class="d-none d-sm-flex">mdi-phone-classic</v-icon>
-  <v-toolbar-title class="black--text ml-3  d-none d-sm-flex">
+  <v-toolbar-title class="black--text ml-2  d-none d-sm-flex">
     +7(981)781-60-68
   </v-toolbar-title>
   <v-btn
     rounded
-    class="ml-5  white--text"
+    class="ml-3  white--text"
     color="primary"
     elevation="2"
     @click="dialog = !dialog"

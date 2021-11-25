@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'nuxt-blog',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ru'
     },
     meta: [
       { charset: 'utf-8' },
@@ -12,7 +12,11 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap",
+      },
     ]
   },
   loading: {
@@ -22,8 +26,11 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   // css: [
-  //   'element-ui/lib/theme-chalk/index.css'
+  //   './assets/fonts/assistant.css',
+  //   './assets/css/styles.css',
+  //   './assets/main.css'
   // ],
+
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   // plugins: [
@@ -55,8 +62,8 @@ export default {
     '@nuxtjs/auth-next',
   ],
   env: {
-    //baseURL: ["https://nuxt-blog2021.herokuapp.com", "http://localhost:3000"]
-    baseURL: "https://nuxt-blog2021.herokuapp.com"
+    baseURL: "http://localhost:3000"
+    // baseURL: "https://nuxt-blog2021.herokuapp.com"
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
