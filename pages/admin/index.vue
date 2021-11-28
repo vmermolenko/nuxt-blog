@@ -45,7 +45,7 @@
             </p>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red" text @click="confirmDelete">да</v-btn>
+              <v-btn color="primary" @click="confirmDelete">да</v-btn>
               <v-btn color="blue darken-1" text @click="dialogDelete=!dialogDelete">нет</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -58,7 +58,7 @@
             </p>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="gren" text @click="confirmCreate">да</v-btn>
+              <v-btn color="primary" @click="confirmCreate">да</v-btn>
               <v-btn color="blue darken-1" text @click="dialogCreate=!dialogCreate">нет</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -103,7 +103,7 @@
     layout : 'admin',
     head() {
         return {
-      title : 'Админка'
+          title : 'Админка'
       }
     },
     data: () => ({
@@ -121,6 +121,9 @@
           { text: 'Действия', value: 'actions' },
         ],
     }),
+    mounted(){
+      this.$store.dispatch('getAllTours')
+    },
     computed: {
       compContent () {
         return this.$store.state.tours

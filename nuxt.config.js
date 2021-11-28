@@ -56,13 +56,13 @@ export default {
   ],
   env: {
     //baseURL: ["https://nuxt-blog2021.herokuapp.com", "http://localhost:3000"]
-    baseURL: "https://nuxt-blog2021.herokuapp.com"
+    baseURL: "http://localhost:3000"
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: process.env.baseURL  // here set your API url
   },
-
+  /*
   axios: {
     baseURL: process.env.NODE_ENV === 'dev'
     ? 'http://localhost:3000'
@@ -78,16 +78,25 @@ export default {
       baseURL: process.env.BASE_URL
     }
   },
-
+  */
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["vee-validate/dist/rules"],
     vendor: ['vuetify']
   },
   router: {
-    //middleware: ['auth']
+    middleware: ['auth']
   },
   auth: {
+    redirect: {
+      login: '/admin/auth/login',
+      logout: '/',
+      callback: '/admin/auth/login',
+      home: '/'
+    },
+    localStorage: {
+      prefix: 'auth.'
+    },
     strategies: {
       local: {
         scheme: "refresh",

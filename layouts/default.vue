@@ -5,7 +5,6 @@
       <v-main class="mt-4">
         <v-container class="pa-0">
           <app-navbar></app-navbar>
-
           <Nuxt />
           <app-footer></app-footer>
         </v-container>
@@ -38,7 +37,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
 html,body, #__nuxt, #__layout{
   height:100%!important;
   width: 100%!important;
