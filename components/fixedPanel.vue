@@ -7,18 +7,8 @@
       elevation="4"
       height="425"
     >
-  <!-- site search -->
-      <v-autocomplete
-        class="ma-3"
-        color="primary"
-        hide-no-data
-        hide-selected
-        item-text="Description"
-        item-value="API"
-        label="Поиск по сайту"
-        prepend-icon="mdi-database-search"
-        return-object
-      ></v-autocomplete>
+    <!-- site search -->
+    <search-site></search-site>
 
       <div @click="clickCheckbox">
         <v-checkbox
@@ -33,7 +23,7 @@
           <template v-slot:label>
             <span>
               Все туры
-              &nbsp; <span class="primary--text" style="font-size: 0.8em;">{{$store.state.turs.length}}</span>
+              &nbsp; <span class="primary--text" style="font-size: 0.8em;">{{ getAllTours.length }}</span>
             </span>
           </template>
         </v-checkbox>
@@ -48,7 +38,7 @@
           <template v-slot:label>
             <span>
               {{check.label}}
-              &nbsp; <span class="primary--text" style="font-size: 0.8em;">{{check.value | counter($store.state.turs)}}</span>
+              &nbsp; <span class="primary--text" style="font-size: 0.8em;">{{ counter(check.value) }}</span>
             </span>
           </template>
         </v-checkbox>
@@ -71,12 +61,15 @@ export default {
       loader: false,
       selected:[],
       checkbox: [
-        {label: 'Туры по Санкт-Петербургу', value: 'spb'},
-        {label: 'Туры по пригородам Санкт-Петербурга', value: 'prigorod'},
-        {label: 'Туры по Карелии', value: 'karelia'},
-        {label: 'Вип туры', value: 'vip'},
+        { label: 'Туры по Санкт-Петербургу', value: 'Санкт-Петербург' },
+        { label: 'Туры по пригородам Санкт-Петербурга', value: 'Пригород' },
+        { label: 'Туры по Карелии', value: 'Карелия' },
+        { label: 'Вип туры', value: 'ВИП' },
       ]
     }
+  },
+  mounted() {
+    this.selected = this.selectedFromVuex
   },
   methods: {
     clickCheckbox() {
@@ -87,9 +80,15 @@ export default {
       if (this.selected.indexOf('all')  >= -1 ) {
         this.selected = ['all']
       }
+    },
+    counter(val){
+      return val? this.getAllTours.filter(t => t.typetour === val).length : 0
     }
   },
   computed: {
+    getAllTours(){
+      return this.$store.getters.getTours
+    },
     selectedFromVuex() {
       return this.$store.getters.SelectedCategory
     },
@@ -102,9 +101,6 @@ export default {
       }
       return this.selected
     }
-  },
-  mounted() {
-    this.selected = this.selectedFromVuex
   },
   watch: {
     selected () {

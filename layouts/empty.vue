@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-app>
-      <v-container fluid>
+      <v-main>
         <Nuxt />
-      </v-container>
+      </v-main>
     </v-app>
   </div>
 </template>
@@ -15,7 +15,5 @@
 </script>
 
 <style lang="scss" scoped>
-html,body, #__nuxt, #__layout{
-  width: 100vw!important;
-}
+
 </style>

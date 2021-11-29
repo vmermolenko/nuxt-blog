@@ -16,3 +16,5 @@
 # npm i @nuxtjs/auth-next
 # npm i @nuxtjs/axios
 # npm install vee-validate --save
+
+# https://www.bezkoder.com/node-js-express-sequelize-mysql/

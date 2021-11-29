@@ -1,65 +1,77 @@
 <template>
   <div>
-
     <v-app id="inspire">
       <v-divider class="mb-5 mt-5"></v-divider>
-      <p class="text-h5 font-weight-bold" style="text-align: center">Индивидуальные туры по Санкт-Петербургу и Карелии</p>
+      <p class="pa-2 text-h5 font-weight-bold" style="text-align: center">Индивидуальные туры по Санкт-Петербургу и Карелии</p>
 
-      <p align="justify" class="pa-2">
+      <p align="justify" class="px-0">
         Lorem ipsum dem temporibus aliquam et assumenda cupiditate quasi? Omnis in eaque explicabo est reprehenderit? Non vel sequi vitae iure quia dolorem voluptates libero sapiente in aspernatur officiis, nihil molestiae maiores ipsam, laborum cum laboriosam ullam consequuntur quisquam cupiditate modi perferendis iste, a labore? Facilis officiis totam, vero voluptatem incidunt nobis magni reprehenderit, tempore distinctio assumenda exercitationem deserunt, dignissimos omnis aliquid deleniti. Consequatur sint inventore nisi magni facilis! Porro, quidem illum amet officia veniam, rem nostrum aperiam vitae exercitationem tenetur corporis excepturi repellat sed eveniet sapiente repellendus voluptas architecto pariatur.
       </p>
 
       <v-row >
         <!-- fixed panel -->
         <v-col md="3" class="d-none  d-sm-none d-md-flex">
-        <fixed-panel ></fixed-panel>
+          <v-row >
+            <v-col  md="12" class="pa-2">
+              <fixed-panel></fixed-panel>
+            </v-col>
+          </v-row>
         </v-col>
 
-        <!-- list turs -->
+        <!-- list tours -->
+        <loader class="my-auto mx-auto" v-if="filterTurs.length===0" />
 
-        <v-col md="9">
+        <v-col md="9" v-else>
           <v-row >
-            <v-col  v-for="tur in filterTurs" :key="tur.id" md="6">
+            <v-col  v-for="tur in filterTurs" :key="tur.id" md="6" class="pa-2">
               <v-card
                 elevation="10"
                 height="100%"
               >
-                <v-card-text font-size=8px class="pa-1 pl-4 white--text text-no-wrap primary">
-                    {{tur.typeRus}}
-                </v-card-text>
+                <!-- <v-card-text  class="pa-1 pl-4 text-h6 white--text text-no-wrap primary">
+                    {{tur.typetour}}
+                </v-card-text> -->
                 <v-img
-                contain
 
+                height="260"
                 :src="tur.img"
                 >
+                  <v-card-text elevation="10" class="text-h4 pa-1 pl-4 white--text shadow">
+                    <strong>
+                      {{tur.typetour}}
+                    </strong>
+                </v-card-text>
                 </v-img>
 
-                <v-card-title font-size=14px style="padding-bottom: 0px; height:90px" class="pt-0" >
+                <v-card-title style="padding-bottom: 0px; height:70px; font-size:20px" class="pt-0" >
                   {{tur.title}}
+
+
                 </v-card-title>
 
+                <v-divider></v-divider>
 
-
-                <v-card-text font-size=8px class="black--text" style="align-items: center">
-                  <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : {{tur.group}}
+                <v-card-text  class="black--text pa-1 pl-3" style="align-items: center">
+                  <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : &nbsp; <strong> {{tur.team}} </strong>
                 </v-card-text>
 
-                <v-card-text font-size=8px class=" black--text pt-0">
-                <v-icon class="mx-2" color="primary">mdi-currency-usd</v-icon> : {{tur.amount}}
+                <v-card-text class=" black--text pa-1 pl-3">
+                <v-icon class="mx-2" color="primary">mdi-currency-usd</v-icon> : &nbsp; <strong> {{tur.amount}} </strong>
                 </v-card-text>
 
-                <v-card-text align="justify" style="height:100px" class="py-0">
+                <v-divider></v-divider>
+
+                <v-card-text align="justify" style="height:100px" class="py-0 pt-2">
                   {{tur.description}}
                 </v-card-text>
-
                 <v-card-actions class="a justify-center">
-                  <v-btn class="mb-5"
+                  <v-btn class="mb-3"
                     rounded
                     color="primary"
                     text
-                    @click.stop=""
+
                   >
-                    <NuxtLink :to="`turs/${tur.id}`">Посмотреть тур</NuxtLink>
+                    <NuxtLink :to="`tours/${tur.id}`" class="link"><strong>Посмотреть тур</strong></NuxtLink>
                   </v-btn>
                 </v-card-actions>
 
@@ -75,6 +87,7 @@
       </v-btn>
 
       <v-divider class="mt-7"></v-divider>
+
     </v-app>
   </div>
 </template>
@@ -83,14 +96,15 @@
 export default {
   auth : false,
   layout : 'default',
-  head :{
-    title : 'Главная'
+  head() {
+    return {
+      title : 'Главная'
+    }
   },
   name: 'House',
   data() {
     return {
       drawer: false,
-      turs: []
     }
   },
   methods: {
@@ -98,22 +112,35 @@ export default {
       this.$vuetify.goTo(0)
     }
   },
-  mounted() {
-    this.turs = this.$store.state.turs
+  async mounted() {
+    await this.$store.dispatch('getAllTours')
   },
   computed: {
-    filterTurs() {
-      if (this.getFilters.indexOf('all')  >= 0 ) {
-        return this.turs
-      }
-      return this.turs.filter(t => this.getFilters.includes(t.type))
+    turForZakaz(){
+      return this.$store.getters.getTurForZakaz
     },
     getFilters() {
       return this.$store.getters.SelectedCategory
-    }
+    },
+    filterTurs() {
+      if (this.getFilters.indexOf('all')  >= 0 ) {
+        return this.$store.getters.getTours
+      }
+      return this.$store.getters.getTours.filter(t => this.getFilters.includes(t.typetour))
+    },
+
   }
 }
 </script>
 <style>
+.link {
+  text-decoration:none;
 
+}
+[v-cloak] {
+  display: none!important;
+}
+.shadow {
+  text-shadow: 1px 3px 2px black, 0 0 0.5em orange; /* Параметры тени */
+  }
 </style>

@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'nuxt-blog',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ru'
     },
     meta: [
       { charset: 'utf-8' },
@@ -12,7 +12,11 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap",
+      },
     ]
   },
   loading: {
@@ -22,14 +26,21 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   // css: [
-  //   'element-ui/lib/theme-chalk/index.css'
+  //   './assets/fonts/assistant.css',
+  //   './assets/css/styles.css',
+  //   './assets/main.css'
   // ],
+
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   // plugins: [
   //   '@/plugins/globals'
   // ],
-  plugins: ['~plugins/vuetify.js', '~plugins/filters.js'],
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+    treeShake: true
+  },
+  plugins: ['~plugins/vuetify.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -50,12 +61,20 @@ export default {
     'nuxt-express-module',
     '@nuxtjs/auth-next',
   ],
-
+  env: {
+    //baseURL: ["https://nuxt-blog2021.herokuapp.com", "http://localhost:3000"]
+    baseURL: "http://localhost:3000"
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: "http://localhost:3000/"  // here set your API url
+    baseURL: process.env.baseURL  // here set your API url
   },
   /*
+  axios: {
+    baseURL: process.env.NODE_ENV === 'dev'
+    ? 'http://localhost:3000'
+    : 'https://nuxt-blog2021.herokuapp.com'
+  },
   publicRuntimeConfig: {
     axios: {
       browserBaseURL: process.env.BROWSER_BASE_URL
@@ -73,9 +92,18 @@ export default {
     vendor: ['vuetify']
   },
   router: {
-    //middleware: ['auth']
+    middleware: ['auth']
   },
   auth: {
+    redirect: {
+      login: '/admin/auth/login',
+      logout: '/',
+      callback: '/admin/auth/login',
+      home: '/'
+    },
+    localStorage: {
+      prefix: 'auth.'
+    },
     strategies: {
       local: {
         scheme: "refresh",
@@ -86,20 +114,22 @@ export default {
           type: "",
           maxAge: 1800
         },
+        /*
         user: {
           property: "user",
           autoFetch: true
-        },
+        }
+        ,*/
         refreshToken: {  // it sends request automatically when the access token expires, and its expire time has set on the Back-end and does not need to we set it here, because is useless
           property: "refreshToken",
           data: "refresh_token",
           maxAge: 60 * 60 * 24 * 30
         },
         endpoints: {
-          login: { url: "/api/auth/signin", method: "post" },
-          refresh: { url: "/api/auth/refreshtoken", method: "post" },
+          login: { url: "/api/auth/signin", method: "post", propertyName: 'accessToken' },
+          refresh: { url: "/api/auth/refreshtoken", method: "post", propertyName: 'refreshToken'},
           logout: false, //  we don't have an endpoint for our logout in our API and we just remove the token from localstorage
-          user: { url: "/api/auth/signin", method: "post" }
+          user: { url: "/api/auth/user", method: "get",  propertyName: 'username' }
         }
       }
     }

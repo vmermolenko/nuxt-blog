@@ -18,10 +18,6 @@ module.exports = function(app) {
     controller.userBoard
   );
 
-  app.get('/api/auth/user', (req, res, next) => {
-    res.json({ user: "req.user" })
-  })
-
   app.get(
     "/api/test/mod",
     [authJwt.verifyToken, authJwt.isModerator],
