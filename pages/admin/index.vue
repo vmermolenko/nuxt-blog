@@ -115,9 +115,10 @@
       headers: [
           { text: 'Id', align: 'start', sortable: false, value: 'id'},
           { text: 'Дата создания', value: 'datestart' },
+          { text: 'Категория', value: 'typetour' },
           { text: 'Название тура', value: 'title' },
           { text: 'Группа', value: 'team' },
-          { text: 'Стоимость экскурсии', value: 'amount' },
+          { text: 'Стоимость экскурсии', value: 'amount'},
           { text: 'Действия', value: 'actions' },
         ],
     }),
@@ -145,8 +146,6 @@
         }).catch((error) => {
             console.warn('error');
         })
-        //this.tours = tours
-
       },
       confirmCreate(){
         //this.$store.commit('createNewTur')

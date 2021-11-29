@@ -5,7 +5,7 @@
 
         <v-col sm="6">
           <v-card>
-            <v-card-title>Панель управления</v-card-title>
+            <v-card-title>Admin panel</v-card-title>
             <v-card-text>
               <validation-observer
                 ref="observer"

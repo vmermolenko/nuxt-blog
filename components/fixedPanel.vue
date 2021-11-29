@@ -7,8 +7,8 @@
       elevation="4"
       height="425"
     >
-  <!-- site search -->
-   <search-site></search-site>
+    <!-- site search -->
+    <search-site></search-site>
 
       <div @click="clickCheckbox">
         <v-checkbox

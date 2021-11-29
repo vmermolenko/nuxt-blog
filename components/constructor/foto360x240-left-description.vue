@@ -1,10 +1,11 @@
 <template>
   <div style="min-height:270px">
-    <p align="justify">
-      <v-card class="leftimg"  height="260" width="360">
-        <v-img :src="foto">
+    <p align="justify" style="min-height:270px">
+      <v-card class="leftimg" width="360">
+        <v-img :src="foto" contain>
         </v-img>
-        <v-card-text class="mx-3 pa-0" style="font-size:0.7em; text-justify:none" >
+
+        <v-card-text v-if="nameFoto!==''" class="mx-3 pa-0" style="font-size:0.7em; text-justify:none" >
           {{nameFoto}}
         </v-card-text>
       </v-card>

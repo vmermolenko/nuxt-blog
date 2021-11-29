@@ -5,7 +5,7 @@
   :items="items"
   :loading="isLoading"
   :search-input.sync="search"
-  class="ma-2"
+  class="ma-2 mt-0"
   color="primary"
   hide-no-data
   hide-selected

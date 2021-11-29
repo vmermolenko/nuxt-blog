@@ -1,18 +1,19 @@
 <template>
   <div>
-    <v-app>
+    <v-app >
       <alert v-if="flag"></alert>
-      <v-main class="mt-4">
-        <v-container class="pa-0">
+      <v-main>
+        <v-container>
           <app-navbar></app-navbar>
           <Nuxt />
           <app-footer></app-footer>
         </v-container>
       </v-main>
+      <modal-zakaz
+        @showAlert="showAlert"
+      ></modal-zakaz>
     </v-app>
-    <modal-zakaz
-    @showAlert="showAlert"
-    ></modal-zakaz>
+
   </div >
 
 </template>
