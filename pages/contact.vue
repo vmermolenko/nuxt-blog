@@ -6,7 +6,6 @@
         <v-card>Как с нами связаться</v-card>
         <v-divider class="mt-7"></v-divider>
       </v-container>
-
     </v-app>
   </div>
 </template>

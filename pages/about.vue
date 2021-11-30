@@ -5,8 +5,8 @@
       <v-container >
         <v-card>О нас</v-card>
         <v-divider class="mt-7"></v-divider>
-      </v-container>
 
+      </v-container>
     </v-app>
   </div>
 </template>
