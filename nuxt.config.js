@@ -62,8 +62,8 @@ export default {
     '@nuxtjs/auth-next',
   ],
   env: {
+    //baseURL: ["https://nuxt-blog2021.herokuapp.com", "http://localhost:3000"]
     baseURL: "http://localhost:3000"
-    // baseURL: "https://nuxt-blog2021.herokuapp.com"
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -92,9 +92,18 @@ export default {
     vendor: ['vuetify']
   },
   router: {
-    //middleware: ['auth']
+    middleware: ['auth']
   },
   auth: {
+    redirect: {
+      login: '/admin/auth/login',
+      logout: '/',
+      callback: '/admin/auth/login',
+      home: '/'
+    },
+    localStorage: {
+      prefix: 'auth.'
+    },
     strategies: {
       local: {
         scheme: "refresh",

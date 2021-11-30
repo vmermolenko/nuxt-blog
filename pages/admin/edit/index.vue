@@ -340,6 +340,7 @@
       ValidationProvider,
       ValidationObserver,
     },
+    /*
     async asyncData({ query, redirect }) {
     const turs = await fetch(
       '/api/turs/all'
@@ -356,7 +357,8 @@
         redirect('/admin')
       }
     },
-    auth : false,
+    */
+    auth : true,
     layout : 'admin',
     head() {
       return {
@@ -430,9 +432,13 @@
         category: ['Санкт-Петербург', 'Пригород', 'Карелия']
       }
     },
-    mounted() {
-      if(this.$route.query.id) {
-        //return this.turEdited = this.$store.getters.getTours.find(t => t.id === this.$route.query.id)
+    async mounted() {
+      await this.$store.dispatch('getAllTours')
+      const tour = this.$store.getters.getTours.find(t => t.id ==  this.$route.query.id)
+      if (tour) {
+        this.turEdited = tour
+      } else {
+        this.$router.push('/admin')
       }
     },
     computed: {
@@ -496,7 +502,7 @@
       },
       deleteComponent(item){
         const idx = this.turEdited.content.indexOf(item)
-        this.turEdited.content.splice(item, 1)
+        this.turEdited.content.splice(idx, 1)
       },
       moveUpComponent(item){
         const idx = this.turEdited.content.indexOf(item)

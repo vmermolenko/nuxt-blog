@@ -23,8 +23,8 @@
 
   <v-spacer></v-spacer>
   <v-icon class="d-none d-sm-flex">mdi-phone-classic</v-icon>
-  <v-toolbar-title class="black--text ml-2  d-none d-sm-flex">
-    +7(981)781-60-68
+  <v-toolbar-title class="black--text ml-3  d-none d-sm-flex">
+     <a href="tel:+79817816068">+7(981)781-60-68</a>
   </v-toolbar-title>
   <v-btn
     rounded

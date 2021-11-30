@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="login">
+    <v-form @submit.prevent="login">
       <div class="mb-3">
         <label for="username" class="form-label">username</label>
         <input
@@ -21,7 +21,7 @@
         />
       </div>
       <button type="submit" class="btn btn-primary w-100">login</button>
-    </form>
+    </v-form>
   </div>
 </template>
 <script>
