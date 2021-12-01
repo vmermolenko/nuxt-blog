@@ -2,6 +2,14 @@
   <div>
     <v-divider class="mb-5 mt-5"></v-divider>
     <v-app>
+
+      <alert v-if="flag"></alert>
+      <modal-zakaz
+        v-model="dialog"
+        @showAlert="showAlert"
+        :TurForZakaz="this.tur.title"
+      >
+      </modal-zakaz>
       <v-container >
 
         <loader class="my-auto mx-auto" v-if="tur.img===''" />
@@ -11,7 +19,7 @@
           <div style="min-height:500px">
             <p class="text-h5 font-weight-bold" style="text-align: center">{{ tur.title }}</p>
 
-              <v-card class="leftimg"  width="600">
+              <v-card class="leftimg mr-10"  width="600">
                 <v-img :src="tur.img">
                 </v-img>
               </v-card>
@@ -54,13 +62,12 @@
             </v-col>
           </v-row>
 
-
+          <!-- similar random tours -->
           <v-row>
             <v-col md="12">
                   <p class="mb-0 text-h6 font-weight-bold" style="text-align: left">Другие туры по выбранным категориям:</p>
             </v-col>
           </v-row>
-
           <v-row>
             <v-col md=3 class="pa-2" v-for="(turRandom, index) in filteredTursRandomComp" :key="index">
               <v-card v-if="turRandom.id"
@@ -156,7 +163,9 @@ export default {
         typetour: '',
         typerus:'',
         content: {}
-      }
+      },
+      dialog: false,
+      flag: false,
     }
   },
   computed: {
@@ -178,8 +187,14 @@ export default {
     }
   },
   methods: {
+    showAlert(){
+      this.flag=!this.flag
+      setTimeout(()=>{
+        this.flag=!this.flag
+      }, 3000)
+    },
     clickZakaz() {
-      this.$store.commit('setDialog')
+      this.dialog = !this.dialog
     },
     toTop () {
       this.$vuetify.goTo(0)
@@ -196,7 +211,7 @@ export default {
       this.$router.push('/')
     }
 
-    this.$store.commit('setTurForZakaz', this.tur.title)
+
   },
 }
 </script>

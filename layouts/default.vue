@@ -2,16 +2,19 @@
   <div>
     <v-app >
       <alert v-if="flag"></alert>
+      <modal-zakaz
+        v-model="dialog"
+        @showAlert="showAlert"
+        :TurForZakaz="null"
+      >
+      </modal-zakaz>
       <v-main>
         <v-container>
-          <app-navbar></app-navbar>
+          <app-navbar @clickZakaz="dialog=!dialog"></app-navbar>
           <Nuxt />
           <app-footer></app-footer>
         </v-container>
       </v-main>
-      <modal-zakaz
-        @showAlert="showAlert"
-      ></modal-zakaz>
     </v-app>
 
   </div >
@@ -21,8 +24,12 @@
 export default {
   data() {
     return {
-      flag: false
+      dialog: false,
+      flag: false,
     }
+  },
+  computed: {
+
   },
   methods: {
     showAlert(){

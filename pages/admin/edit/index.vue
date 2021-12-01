@@ -38,7 +38,6 @@
         <!-- настройка контента тура(компоненты) -->
         <v-col cols="3" class="pa-1 " >
           <v-card elevation="4"  class="mx-auto justify-center pa-2 " color="grey" height="100%">
-
             <div class="sticky">
               <!-- Выбор компонента -->
               <v-card class="">
@@ -63,7 +62,6 @@
                     <v-row class="mx-2 mt-0" v-if="compFoto">
                       <v-col md="12" >
                       <!-- <v-file-input
-
                         class="mt-0"
                         accept="image/png, image/jpeg, image/bmp"
                         placeholder=""
@@ -138,14 +136,40 @@
                             </v-btn>
                       </v-col>
                     </v-row>
+                    <!-- Элементы списка фото-->
+
+                    <v-row class="mx-2 mt-0" v-if="compFotoAlbum">
+                      <div class="mb-5"><strong>Фото в альбоме:</strong> <span class="blue--text">{{fotoCounter}}</span> </div>
+                      <v-col md="10">
+
+                        <v-text-field
+                          v-model="itemListFoto"
+                          class="pt-0"
+                          label="URL фото"
+                          hide-details="auto"
+                        ></v-text-field>
+
+                      </v-col>
+                      <v-col md="2" >
+                        <v-btn
+                        @click="addFoto"
+                        text
+                        icon>
+                          <v-icon color="green">
+                            mdi-plus-thick
+                          </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                    <v-img :src="itemListFoto" height="100" class="mt-5" contain ></v-img>
                   <v-card-actions  class="justify-center mt-10">
                     <v-btn
                     text
                     color="primary"
                     @click="addComponent"
-                    :disabled = !compitemListInput
+                    :disabled = !compIsActive
                     >
-                      вставить
+                      вставить компонент
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -155,168 +179,163 @@
           </v-card>
         </v-col>
         <!-- контент тура -->
+        <v-col cols="9" class="pa-1 ">
+          <v-card elevation="4" class="mb-2 pa-2" color="grey">
+            <v-expansion-panels flat hover tile v-model="panel" multiple>
+              <v-expansion-panel v-model="panel">
+                <v-expansion-panel-header class="pl-0">
+                  <v-card-title class="py-0">Основные характеристики тура</v-card-title>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <v-card elevation="4" height="100%">
+                    <v-row class="mx-2 mt-0">
+                      <v-col md="6" >
+                        <!-- название тура -->
+                        <v-text-field
+                          v-model="turEdited.title"
+                          class="pt-0 mb-3"
+                          label="Название тура"
+                          hide-details="auto"
+                        ></v-text-field>
+                        <!-- краткое описание тура 160символов-->
+                        <v-textarea
+                          class="mb-3"
+                          rows="5"
+                          v-model="turEdited.description"
+                          counter
+                          label="Краткое описание"
+                          :rules="rules"
+                          :value="value"
+                          maxlength="140"
+                        ></v-textarea>
+                        <v-text-field
+                          class="mb-3"
+                          v-model="turEdited.team"
+                          label="Группа"
+                          hide-details="auto"
+                        ></v-text-field>
+                        <v-text-field
+                          class="mb-3"
+                          v-model="turEdited.amount"
+                          label="Цена"
+                          hide-details="auto"
+                        ></v-text-field>
 
-          <v-col cols="9" class="pa-1 ">
-            <v-card elevation="4" class="mb-2 pa-2" color="grey">
-              <v-expansion-panels flat hover tile v-model="panel" multiple>
-                <v-expansion-panel v-model="panel">
-                  <v-expansion-panel-header class="pl-0">
-                    <v-card-title class="py-0">Основные характеристики тура</v-card-title>
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                    <v-card elevation="4" height="100%">
-                      <v-row class="mx-2 mt-0">
-                        <v-col md="6" >
-                          <!-- название тура -->
-                          <v-text-field
-                            v-model="turEdited.title"
-                            class="pt-0 mb-3"
-                            label="Название тура"
-                            hide-details="auto"
-                          ></v-text-field>
-                          <!-- краткое описание тура 160символов-->
-                          <v-textarea
-                            class="mb-3"
-                            rows="5"
-                            v-model="turEdited.description"
-                            counter
-                            label="Краткое описание"
-                            :rules="rules"
-                            :value="value"
-                            maxlength="160"
-                          ></v-textarea>
-                          <v-text-field
-                            class="mb-3"
-                            v-model="turEdited.team"
-                            label="Группа"
-                            hide-details="auto"
-                          ></v-text-field>
-                          <v-text-field
-                            class="mb-3"
-                            v-model="turEdited.amount"
-                            label="Цена"
-                            hide-details="auto"
-                          ></v-text-field>
-
-                            <validation-provider
-                              v-slot="{ errors }"
-                              name="turEdited.typetour"
-                              rules="required"
-                            >
-                              <v-select
-                                :error-messages="errors"
-                                class="mb-3"
-                                v-model="turEdited.typetour"
-                                :items="category"
-                                label="Выбор категории"
-                              ></v-select>
-                            </validation-provider>
-
-
-                        </v-col>
-                        <!-- главное фото -->
-                        <v-col md="6" >
                           <validation-provider
                             v-slot="{ errors }"
-                            name="turEdited.img"
+                            name="turEdited.typetour"
                             rules="required"
                           >
-                            <v-text-field append
+                            <v-select
                               :error-messages="errors"
-                              v-model="turEdited.img"
-                              class="pt-0"
-                              label="Главное фото(URL)"
-                              hide-details="auto"
-                            ></v-text-field>
-
-                          <v-img :src="turEdited.img" contain></v-img>
+                              class="mb-3"
+                              v-model="turEdited.typetour"
+                              :items="category"
+                              label="Выбор категории"
+                            ></v-select>
                           </validation-provider>
-                        </v-col>
-                      </v-row>
-                    </v-card>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
+                      </v-col>
+                      <!-- главное фото -->
+                      <v-col md="6" >
+                        <validation-provider
+                          v-slot="{ errors }"
+                          name="turEdited.img"
+                          rules="required"
+                        >
+                          <v-text-field append
+                            :error-messages="errors"
+                            v-model="turEdited.img"
+                            class="pt-0"
+                            label="Главное фото(URL)"
+                            hide-details="auto"
+                          ></v-text-field>
+                        <v-img :src="turEdited.img" contain></v-img>
+                        </validation-provider>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-card>
+          <!-- контент тура --><!-- отображение компонентов -->
+          <v-card elevation="4" class="my-2 pa-2" color="grey">
+            <v-card class="mb-3">
+              <v-card-title class="py-0">Контент тура <v-spacer></v-spacer><v-btn color="primary" text><span style="font-size:0.8em">предварительный просмотр</span> </v-btn></v-card-title>
+              <v-card-text class="py-0">Для заполнения выберите компонент</v-card-text>
             </v-card>
-            <!-- контент тура -->
-            <v-card elevation="4" class="my-2 pa-2" color="grey">
-              <v-card class="mb-3">
-                <v-card-title class="py-0">Контент тура <v-spacer></v-spacer><v-btn color="primary" text><span style="font-size:0.8em">предварительный просмотр</span> </v-btn></v-card-title>
-                <v-card-text class="py-0">Для заполнения выберите компонент</v-card-text>
-              </v-card>
-              <v-card elevation="4" class="pa-10 text-center" v-if="getLength(turEdited.content) === 0" height="300">
-                <span class="text-h6">Пусто. Вставьте первый компонент</span>
-              </v-card>
-              <v-card elevation="4" class="pa-3" v-else>
-                <div v-for="(item, index) in turEdited.content" :key="index">
-                  <v-divider></v-divider>
-                  <v-row>
-                    <v-col md="11">
-                      <component
-                        :is="item.type"
-                        :text="item.text"
-                        :foto="item.foto"
-                        :nameFoto="item.nameFoto"
-                        :title="item.title"
-                        :items="item.items"
-                      ></component>
-                    </v-col>
-                    <v-col md="1">
-                      <v-row >
-                        <v-col md="6">
-                          <v-row>
+            <v-card elevation="4" class="pa-10 text-center" v-if="getLength(turEdited.content) === 0" height="300">
+              <span class="text-h6">Пусто. Вставьте первый компонент</span>
+            </v-card>
+            <v-card elevation="4" class="pa-3" v-else>
+              <div v-for="(item, index) in turEdited.content" :key="index">
+                <v-divider></v-divider>
+                <v-row>
+                  <v-col md="11">
+                    <component
+                      :is="item.type"
+                      :text="item.text"
+                      :foto="item.foto"
+                      :nameFoto="item.nameFoto"
+                      :title="item.title"
+                      :items="item.items"
+                    ></component>
+                  </v-col>
+                  <v-col md="1">
+                    <v-row >
+                      <v-col md="6">
+                        <v-row>
 
-                            <v-btn
-                            :disabled="index===0"
-                            class="mt-1"
-                            text
-                            icon
-                            @click="moveUpComponent(item)"
-                            >
+                          <v-btn
+                          :disabled="index===0"
+                          class="mt-1"
+                          text
+                          icon
+                          @click="moveUpComponent(item)"
+                          >
+                          <v-icon color="primary" large>
+                          mdi-chevron-up
+                          </v-icon>
+                          </v-btn>
+                        </v-row>
+
+                        <v-row>
+                          <v-btn
+                          :disabled="index=== getLength(turEdited.content)-1"
+                          class="mb-1"
+                          text
+                          icon
+                          @click="moveDownComponent(item)"
+                          >
                             <v-icon color="primary" large>
-                            mdi-chevron-up
-                            </v-icon>
-                            </v-btn>
-                          </v-row>
-
-                          <v-row>
-                            <v-btn
-                            :disabled="index=== getLength(turEdited.content)-1"
-                            class="mb-1"
-                            text
-                            icon
-                            @click="moveDownComponent(item)"
-                            >
-                              <v-icon color="primary" large>
-                              mdi-chevron-down
-                              </v-icon>
-                            </v-btn>
-                          </v-row>
-                        </v-col>
-
-                        <v-col md="6">
-                          <v-row>
-                            <v-btn
-                            class="mt-1"
-                            text
-                            icon
-                            @click="deleteComponent(item)"
-                            >
-                            <v-icon color="red">
-                            mdi-window-close
+                            mdi-chevron-down
                             </v-icon>
                           </v-btn>
-                          </v-row>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                  </v-row>
-                  <v-divider></v-divider>
-                </div>
-              </v-card>
-            </v-card>
-          </v-col>
+                        </v-row>
+                      </v-col>
 
+                      <v-col md="6">
+                        <v-row>
+                          <v-btn
+                          class="mt-1"
+                          text
+                          icon
+                          @click="deleteComponent(item)"
+                          >
+                          <v-icon color="red">
+                          mdi-window-close
+                          </v-icon>
+                        </v-btn>
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+                <v-divider></v-divider>
+              </div>
+            </v-card>
+          </v-card>
+        </v-col>
       </v-row>
     </validation-observer>
     <v-btn fab dark fixed medium color="primary" @click="toTop"
@@ -381,17 +400,20 @@
           typerus: '',
           content: []
         },
-        rules: [v => v.length <= 160 || 'Максимум 160 символов'],
+        rules: [v => v.length <= 140 || 'Max 140 символов'],
         value: '',
         panel: [0, 1],
         text: '',
         title: '',
         itemListInput: null,
+        itemListFoto: null,
+        fotoCounter: 0,
         items: [],
         foto: '',
         nameFoto: '',
         itemsArray: [],
-        // tur
+
+
 
         componentType: null,
         components: [
@@ -403,6 +425,10 @@
           {
             text: 'Заголовок слева',
             value: 'constructor-title-left'
+          },
+          {
+            text: 'Параграф',
+            value: 'constructor-paragraf'
           },
           {
             text: 'Текст',
@@ -427,9 +453,19 @@
           {
             text: 'Фото400x711',
             value: 'constructor-foto400x711'
+          },
+          {
+            text: 'Фотоальбом',
+            value: 'constructor-photo-album'
+          },
+          {
+            text: '5 пустых строк',
+            value: 'constructor-empty-row'
           }
+
+
         ],
-        category: ['Санкт-Петербург', 'Пригород', 'Карелия']
+        category: ['San Petersburgo', 'Suburbio', 'Carelia']
       }
     },
     async mounted() {
@@ -445,11 +481,12 @@
       compAction() {
         return this.$route.query.id ? 'Редактирование тура' : 'Создание тура'
       },
-      compitemListInput(){
-        return this.itemListInput === null
+      // addComponent disabled
+      compIsActive(){
+        return this.itemListFoto === null && this.itemListInput === null
       },
       compText() {
-        return this.componentType ==='constructor-title-center' || this.componentType ==='constructor-title-left' || this.componentType === 'constructor-text-content' || this.componentType === 'constructor-foto360x240-left-description' || this.componentType === 'constructor-foto360x240-right-description'
+        return this.componentType ==='constructor-paragraf' ||this.componentType ==='constructor-title-center' || this.componentType ==='constructor-title-left' || this.componentType === 'constructor-text-content' || this.componentType === 'constructor-foto360x240-left-description' || this.componentType === 'constructor-foto360x240-right-description'
       },
       compFoto() {
         return this.componentType ==='constructor-foto360x240-left-description' || this.componentType ==='constructor-foto360x240-right-description' || this.componentType ==='constructor-foto-full876x493' || this.componentType ==='constructor-foto400x711'
@@ -457,6 +494,9 @@
       compList() {
         return this.componentType ==='constructor-list'
       },
+      compFotoAlbum() {
+        return this.componentType ==='constructor-photo-album'
+      }
 
     },
     methods: {
@@ -480,6 +520,11 @@
         this.itemsArray.push(this.itemListInput)
         this.itemListInput = null
       },
+      addFoto(){
+        this.itemsArray.push(this.itemListFoto)
+        this.itemListFoto = null
+        this.fotoCounter +=1
+      },
       addComponent() {
         if (this.turEdited.content === null) {
           this.turEdited.content = []
@@ -499,6 +544,7 @@
         this.itemsArray = []
         this.foto = ''
         this.nameFoto = ''
+        this.fotoCounter = 0
       },
       deleteComponent(item){
         const idx = this.turEdited.content.indexOf(item)

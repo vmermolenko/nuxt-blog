@@ -3,10 +3,10 @@
   <v-row justify="center">
     <v-dialog
       v-model="dialog"
-      max-width="600px"
+      max-width="800px"
     >
       <v-card>
-        <v-card-title>
+        <v-card-title class="pb-0">
           <span class="text-h5">Заказ тура</span>
           <v-spacer></v-spacer>
           <v-icon
@@ -19,11 +19,11 @@
         <validation-observer
           ref="observer"
         >
-          <v-form form @submit.prevent="submit">
+          <form ref="form" @submit.prevent="sendEmail">
             <v-card-text class="pt-0">
               <v-container class="pt-0">
                 <small>*Заполните необходимые поля и мы с Вами свяжемся</small>
-    <!-- select tur -->
+                <!-- select tur -->
                 <v-row>
                   <v-col
                     cols="12"
@@ -31,13 +31,17 @@
                     md="12"
                     class="mt-5"
                   >
-                    <validation-provider
+                    <div v-if="TurForZakaz">
+                      <v-card-text class="pl-0 py-0 text-caption primary--text">Выбранный тур</v-card-text>
+                      <v-card-title  class="pl-0 py-0">{{TurForZakaz}}</v-card-title>
+                    </div>
+                    <validation-provider v-else
                       v-slot="{ errors }"
                       name="select"
                       rules="required"
                     >
                       <v-autocomplete
-                        v-model="selectComp"
+                        v-model="select"
                         :items="tursComp"
                         label="Выберите тур"
                         :error-messages="errors"
@@ -46,8 +50,8 @@
                     </validation-provider>
                   </v-col>
                 </v-row>
-    <!-- date -->
-                <v-row>
+                <!-- date -->
+                <v-row class="my-0">
                   <v-col
                     md="4"
                   >
@@ -62,7 +66,7 @@
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           v-model="date"
-                          label="Выберите дату тура"
+                          label="Выберите дату тура*"
                           prepend-icon="mdi-calendar"
                           readonly
                           v-bind="attrs"
@@ -76,13 +80,14 @@
                     </v-menu>
                   </v-col>
                 </v-row>
-    <!-- name .. email -->
+                <!-- name .. email -->
                 <v-row>
-    <!-- name -->
+                  <!-- name -->
                   <v-col
                     cols="12"
                     sm="6"
                     md="6"
+                    class="py-0"
                   >
                     <validation-provider
                       v-slot="{ errors }"
@@ -92,29 +97,41 @@
                       <v-text-field
                       v-model="name"
                       :error-messages="errors"
-                      label="Ваше имя"
+                      label="Name*"
                       required
                       ></v-text-field>
                     </validation-provider>
                   </v-col>
-    <!-- Email -->
+                  <!-- Email -->
                   <v-col
                   cols="12"
                   sm="6"
                   md="6"
+                  class="py-0"
                   >
                     <validation-provider
                         v-slot="{ errors }"
-                        name="email"
+                        name="Email*"
                         rules="required|email"
                       >
                         <v-text-field
                           v-model="email"
                           :error-messages="errors"
-                          label="Email"
+                          label="Email*"
                           required
                         ></v-text-field>
                     </validation-provider>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <v-textarea
+                      class="mb-3"
+                      rows="3"
+                      v-model="message"
+                      counter
+                      label="Message"
+                    ></v-textarea>
                   </v-col>
                 </v-row>
               </v-container>
@@ -125,13 +142,12 @@
                 color="blue darken-1"
                 text
                 type="submit"
-
               >
-              <!-- :disabled="invalid" -->
                 Заказать тур
               </v-btn>
+
             </v-card-actions>
-          </v-form>
+          </form>
         </validation-observer>
       </v-card>
     </v-dialog>
@@ -139,20 +155,24 @@
 </div>
 </template>
 <script>
+  import emailjs from 'emailjs-com';
+  import{ init } from 'emailjs-com';
+  init("user_VAhdS8kJOg8ogyDaT9FNI");
+
   import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
 
   setInteractionMode('eager')
 
-   extend('required', {
+  extend('required', {
     ...required,
     message: 'Заполните поле',
   })
-   extend('email', {
+
+  extend('email', {
     ...email,
     message: 'Введите правильный Email',
   })
-
 
   export default {
     components: {
@@ -160,15 +180,14 @@
       ValidationObserver,
     },
     emits: ['showAlert'],
-    props: ['value'],
+    props: ['value','TurForZakaz'],
     data: () => ({
-      //dialog: false,
       menu2: false,
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       name: '',
       email: '',
-      form: {},
-      selectComp: {}
+      select: '',
+      message: ''
     }),
     computed: {
       dialog: {
@@ -181,41 +200,38 @@
       },
       tursComp() {
         const titles = []
-        const turs = this.$store.getters.getTours.forEach(t => {
+        this.$store.getters.getTours.forEach(t => {
           titles.push(t.title)
         });
-
         return titles
-      }
-      // },
-      // selectComp(){
-      //   return this.$store.getters.getTurForZakaz
-      // }
-
+      },
     },
     methods: {
       closeDialog() {
         this.dialog = !this.dialog
       },
-      async submit () {
-
+      async sendEmail () {
         const isValid = await this.$refs.observer.validate()
         if(isValid){
-          this.form = {
-            select: this.selectComp,
+          const templateParams = {
+            select: this.TurForZakaz? this.TurForZakaz : this.select,
             date: this.date,
             name: this.name,
-            email: this.email
+            email: this.email,
+            message: this.message
+
           }
+          emailjs.send('service_gk0z8oi', 'template_7s6445l', templateParams, 'user_VAhdS8kJOg8ogyDaT9FNI')
 
           this.dialog = !this.dialog
-          //this.$store.commit('setDialog')
           this.$emit('showAlert')
-
-          //console.log('отправка формы ',this.form);
         }
-
       },
     },
+    mounted() {
+      console.log(this.$refs.form);
+    }
+
+
   }
 </script>

@@ -1,8 +1,8 @@
 <template>
 <div>
+
 <v-app-bar
   color="white"
-  dense
   flat
 >
   <v-app-bar-nav-icon @click.stop="drawer=!drawer" class="d-flex d-md-none"/>
@@ -16,45 +16,79 @@
       contain
     ></v-img>
     <!-- company name -->
-    <v-toolbar-title class="black--text ml-2 text-h5 d-flex align-center">
-      Life Is Travel
+    <v-toolbar-title class="black--text ml-2 d-flex align-center font-logo" >
+      La Vida Es Viajar
     </v-toolbar-title>
   </nuxt-link>
 
   <v-spacer></v-spacer>
-  <v-icon class="d-none d-sm-flex">mdi-phone-classic</v-icon>
-  <v-toolbar-title class="black--text ml-3  d-none d-sm-flex">
-     <a href="tel:+79817816068">+7(981)781-60-68</a>
-  </v-toolbar-title>
+
   <v-btn
     rounded
-    class="ml-3  white--text"
-    color="primary"
-    elevation="2"
-    @click="dialog = !dialog"
+    tile
+    class="ml-3  blue--text d-none d-sm-flex elevation-5"
+    color="white"
+
+    @click="$emit('clickZakaz')"
   >
-  Заказать тур
+  reservar un tour
   </v-btn>
-  <modal-zakaz v-model="dialog"></modal-zakaz>
+
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" absolute width="280">
-    <fixed-panel style="height: 100%"></fixed-panel>
+  <v-navigation-drawer v-model="drawer" absolute width="300">
+
+    <fixed-panel class="pt-10"></fixed-panel>
+
+    <v-card elevation="0">
+      <v-card-actions class="a justify-center">
+      <v-btn
+        rounded
+        tile
+        class="mx-auto  blue--text "
+        color="white"
+        elevation="5"
+        @click="$emit('clickZakaz')"
+      >
+        reservar un tour
+      </v-btn>
+      </v-card-actions>
+    </v-card>
+
+
   </v-navigation-drawer>
 </div>
 
 </template>
 <script>
 export default {
+  emits:['clickZakaz'],
   data() {
     return {
-      dialog: false,
-      drawer: false
+      drawer: false,
     }
-  }
+  },
+  methods: {
+    // showAlert(){
+    //   this.flag=!this.flag
+    //   setTimeout(()=>{
+    //     this.flag=!this.flag
+    //   }, 3000)
+    // }
+  },
 }
 </script>
 <style>
-   .nuxtLink{text-decoration: none;}
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&family=Comforter&family=Merienda&family=Solway&display=swap');
+  .nuxtLink{text-decoration: none;}
+  .font-logo{
+    font-family: 'Merienda', cursive !important;
+    color: #2b2b2b;
+    text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+  }
+  .elevation-5{
+    box-shadow: 0px 3px 3px 1px rgba(22, 25, 220, 0.885), 0px 3px 5px 0px rgba(22, 25, 220, 0.885), 0px 1px 11px 1px rgba(22, 25, 220, 0.885) !important;
+  }
+
 </style>
 

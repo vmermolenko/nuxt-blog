@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p align="justify"> {{ text }}</p>
+    <p align="left"> &nbsp;&nbsp;&nbsp;&nbsp;{{ text }}</p>
   </div>
 </template>
 <script>

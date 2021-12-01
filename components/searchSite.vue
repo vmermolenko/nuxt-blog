@@ -11,7 +11,7 @@
   hide-selected
   item-text="Description"
   item-value="API"
-  label="Поиск по турам"
+  label="Búsqueda por tours"
   prepend-icon="mdi-database-search"
   return-object
   ></v-autocomplete>
