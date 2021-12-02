@@ -2,23 +2,25 @@
 <div>
 
 <v-app-bar
-  color="white"
+  color="grey lighten-5"
   flat
 >
   <v-app-bar-nav-icon @click.stop="drawer=!drawer" class="d-flex d-md-none"/>
   <nuxt-link to="/" class="d-flex nuxtLink">
     <!--logo -->
+    <!-- :src="require('../assets/img/logo-64.jpeg')" -->
+
     <v-img
       class="d-none d-sm-flex"
-      :src="require('../assets/img/logo-64.jpeg')"
-      max-height="64"
-      max-width="64"
+      src="https://bumper-stickers.ru/50498-thickbox_default/sankt-peterburg-razvodnye-mosty.jpg"
+
+      max-width="100"
       contain
     ></v-img>
     <!-- company name -->
-    <v-toolbar-title class="black--text ml-2 d-flex align-center font-logo" >
+    <span class="black--text ml-4 d-flex align-center font-logo font-weight-bold" >
       La Vida Es Viajar
-    </v-toolbar-title>
+    </span>
   </nuxt-link>
 
   <v-spacer></v-spacer>
@@ -26,12 +28,13 @@
   <v-btn
     rounded
     tile
-    class="ml-3  blue--text d-none d-sm-flex elevation-5"
-    color="white"
-
+    class="ml-3  white--text d-none d-sm-flex elevation-5"
+    color="black"
+    elevation="10"
     @click="$emit('clickZakaz')"
   >
   reservar un tour
+
   </v-btn>
 
   </v-app-bar>
@@ -45,8 +48,8 @@
       <v-btn
         rounded
         tile
-        class="mx-auto  blue--text "
-        color="white"
+        class="mx-auto  white--text "
+        color="black"
         elevation="5"
         @click="$emit('clickZakaz')"
       >
@@ -69,12 +72,6 @@ export default {
     }
   },
   methods: {
-    // showAlert(){
-    //   this.flag=!this.flag
-    //   setTimeout(()=>{
-    //     this.flag=!this.flag
-    //   }, 3000)
-    // }
   },
 }
 </script>
@@ -84,10 +81,11 @@ export default {
   .font-logo{
     font-family: 'Merienda', cursive !important;
     color: #2b2b2b;
-    text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+    text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+    font-size: 25px;
   }
   .elevation-5{
-    box-shadow: 0px 3px 3px 1px rgba(22, 25, 220, 0.885), 0px 3px 5px 0px rgba(22, 25, 220, 0.885), 0px 1px 11px 1px rgba(22, 25, 220, 0.885) !important;
+    text-shadow: 2px 2px 2px rgba(37, 34, 190, 0.1);
   }
 
 </style>

@@ -7,7 +7,7 @@
     >
       <v-card>
         <v-card-title class="pb-0">
-          <span class="text-h5">Заказ тура</span>
+          <span class="text-h5">Orden del tour</span>
           <v-spacer></v-spacer>
           <v-icon
           @click="closeDialog"
@@ -22,7 +22,7 @@
           <form ref="form" @submit.prevent="sendEmail">
             <v-card-text class="pt-0">
               <v-container class="pt-0">
-                <small>*Заполните необходимые поля и мы с Вами свяжемся</small>
+                <small>*Rellene los campos necesarios y nos pondremos en contacto con Usted</small>
                 <!-- select tur -->
                 <v-row>
                   <v-col
@@ -32,7 +32,7 @@
                     class="mt-5"
                   >
                     <div v-if="TurForZakaz">
-                      <v-card-text class="pl-0 py-0 text-caption primary--text">Выбранный тур</v-card-text>
+                      <v-card-text class="pl-0 py-0 text-caption primary--text">Tour seleccionado</v-card-text>
                       <v-card-title  class="pl-0 py-0">{{TurForZakaz}}</v-card-title>
                     </div>
                     <validation-provider v-else
@@ -43,7 +43,7 @@
                       <v-autocomplete
                         v-model="select"
                         :items="tursComp"
-                        label="Выберите тур"
+                        label="Elige un Tour"
                         :error-messages="errors"
                         required
                       ></v-autocomplete>
@@ -66,7 +66,7 @@
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           v-model="date"
-                          label="Выберите дату тура*"
+                          label="Seleccione la fecha de la gira*"
                           prepend-icon="mdi-calendar"
                           readonly
                           v-bind="attrs"
@@ -97,7 +97,7 @@
                       <v-text-field
                       v-model="name"
                       :error-messages="errors"
-                      label="Name*"
+                      label="Nombre*"
                       required
                       ></v-text-field>
                     </validation-provider>
@@ -111,13 +111,13 @@
                   >
                     <validation-provider
                         v-slot="{ errors }"
-                        name="Email*"
+                        name="E-mail*"
                         rules="required|email"
                       >
                         <v-text-field
                           v-model="email"
                           :error-messages="errors"
-                          label="Email*"
+                          label="Correo electrónico*"
                           required
                         ></v-text-field>
                     </validation-provider>
@@ -130,7 +130,7 @@
                       rows="3"
                       v-model="message"
                       counter
-                      label="Message"
+                      label="Mensaje"
                     ></v-textarea>
                   </v-col>
                 </v-row>
@@ -139,12 +139,15 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
-                text
+                rounded
+                color="black"
+                tile
                 type="submit"
+                class="white--text elevation-5"
               >
-                Заказать тур
+                Reservar un tour
               </v-btn>
+
 
             </v-card-actions>
           </form>

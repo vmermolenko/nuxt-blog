@@ -459,7 +459,11 @@
             value: 'constructor-photo-album'
           },
           {
-            text: '5 пустых строк',
+            text: 'Цитата',
+            value: 'constructor-alert-message'
+          },
+          {
+            text: 'Пустая строка',
             value: 'constructor-empty-row'
           }
 
@@ -486,7 +490,7 @@
         return this.itemListFoto === null && this.itemListInput === null
       },
       compText() {
-        return this.componentType ==='constructor-paragraf' ||this.componentType ==='constructor-title-center' || this.componentType ==='constructor-title-left' || this.componentType === 'constructor-text-content' || this.componentType === 'constructor-foto360x240-left-description' || this.componentType === 'constructor-foto360x240-right-description'
+        return this.componentType ==='constructor-alert-message' || this.componentType ==='constructor-paragraf' ||this.componentType ==='constructor-title-center' || this.componentType ==='constructor-title-left' || this.componentType === 'constructor-text-content' || this.componentType === 'constructor-foto360x240-left-description' || this.componentType === 'constructor-foto360x240-right-description'
       },
       compFoto() {
         return this.componentType ==='constructor-foto360x240-left-description' || this.componentType ==='constructor-foto360x240-right-description' || this.componentType ==='constructor-foto-full876x493' || this.componentType ==='constructor-foto400x711'

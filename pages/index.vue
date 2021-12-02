@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app>
-      <v-divider class="mb-5 mt-5"></v-divider>
+      <v-divider class="mb-5 "></v-divider>
 
       <p class="pa-2 font-weight-bold title-font" style="text-align: center">Tours individuales en San Petersburgo y Karelia</p>
 
@@ -10,7 +10,6 @@
       </p>
 
       <v-row>
-
         <!-- list tours -->
         <loader class="my-auto mx-auto" v-if="filterTurs.length===0" />
 
@@ -22,63 +21,36 @@
                 elevation="10"
                 height="100%"
               >
-                <!-- <v-card-text  class="pa-1 pl-4 text-h6 white--text text-no-wrap primary">
-                    {{tur.typetour}}
-                </v-card-text> -->
                 <v-img
-
                 height="260"
                 :src="tur.img"
                 >
-                  <v-card-text elevation="10" class="text-h5 pa-1 pl-4 white--text shadow">
+                  <v-card-text elevation="10" class=" pa-1 pl-4 white--text shadow" style="font-size:20px">
                     <strong>
                       {{tur.typetour}}
                     </strong>
-                </v-card-text>
+                  </v-card-text>
                 </v-img>
 
                 <v-card-text style="padding-bottom: 0px; height:70px; font-size:20px" >
                   {{tur.title}}
                 </v-card-text>
+
                 <v-divider></v-divider>
 
                 <v-card-text align="justify" style="height:130px" class="py-0 pt-2">
-                  {{tur.description}} &nbsp; &nbsp;
+                  {{tur.description}}
                   <p class="pt-2">
-                    <NuxtLink :to="`tours/${tur.id}`" class="link pt-2" ><strong>DETALLADO...</strong></NuxtLink>
+                    <NuxtLink :to="`tours/${tur.id}`" class="link pt-2" ><strong >DETALLADO...</strong></NuxtLink>
                   </p>
-
                 </v-card-text>
-
-                <!-- <v-divider></v-divider>
-
-                <v-card-text  class="black--text pa-1 pl-3" style="align-items: center">
-                  <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> группа: &nbsp; <strong> {{tur.team}} </strong>
-                </v-card-text>
-
-                <v-card-text class=" black--text pa-1 pl-3">
-                <v-icon class="mx-2" color="primary">mdi-currency-usd</v-icon> цена: &nbsp; <strong> {{tur.amount}} </strong>
-                </v-card-text> -->
-
-
-                <!-- <v-card-actions class="a justify-center">
-                  <v-btn class="mb-3"
-                    rounded
-                    color="primary"
-                    text
-
-                  >
-                    <NuxtLink :to="`tours/${tur.id}`" class="link"><strong>Посмотреть тур</strong></NuxtLink>
-                  </v-btn>
-                </v-card-actions> -->
-
               </v-card>
               </NuxtLink>
             </v-col>
           </v-row>
         </v-col>
 
-          <!-- fixed panel -->
+        <!-- fixed panel -->
         <v-col md="3" class="d-none  d-sm-none d-md-flex" style="height: auto">
           <v-row >
             <v-col  md="12" class="pa-2">
@@ -87,9 +59,9 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-btn fab dark fixed medium color="primary" @click="toTop"
+      <v-btn fab dark fixed medium color="grey lighten-5" @click="toTop"
       class="v-btn v-btn--bottom v-btn--floating v-btn--fixed v-btn--right theme--dark">
-        <v-icon dark>mdi-chevron-up</v-icon>
+        <v-icon dark color="black">mdi-chevron-up</v-icon>
       </v-btn>
 
       <v-divider class="mt-7"></v-divider>
@@ -143,10 +115,9 @@ export default {
 .title-font {
   font-family: 'Merienda', cursive !important;
   color: #2b2b2b;
-  font-size: 25px;
-  text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+  font-size: 20px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
-
 .link {
   text-decoration:none;
 }
