@@ -3,7 +3,7 @@
     <v-divider class="mb-5"></v-divider>
     <v-app>
 
-      <alert v-if="flag"></alert>
+      <alert v-if="flag" :message="alertMessage"></alert>
       <modal-zakaz
         v-model="dialog"
         @showAlert="showAlert"
@@ -57,10 +57,9 @@
               <v-card-actions  class="justify-center">
                 <v-btn
                   @click="clickZakaz"
-                  rounded
-                  tile
-                  class="ml-3 mt-3 white--text elevation-5"
-                  color="black"
+                  class="ml-3 mt-3 blue--text"
+                  color="grey lighten-5"
+                  elevation="10"
                 >
                 reservar este tour
                 </v-btn>
@@ -195,8 +194,9 @@ export default {
     }
   },
   methods: {
-    showAlert(){
+    showAlert(data){
       this.flag=!this.flag
+      this.alertMessage = data
       setTimeout(()=>{
         this.flag=!this.flag
       }, 3000)

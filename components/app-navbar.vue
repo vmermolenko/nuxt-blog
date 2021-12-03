@@ -26,15 +26,12 @@
   <v-spacer></v-spacer>
 
   <v-btn
-    rounded
-    tile
-    class="ml-3  white--text d-none d-sm-flex elevation-5"
-    color="black"
+    class="ml-3  blue--text d-none d-sm-flex elevation-10"
+    color="grey lighten-5"
     elevation="10"
     @click="$emit('clickZakaz')"
   >
   reservar un tour
-
   </v-btn>
 
   </v-app-bar>
@@ -48,9 +45,9 @@
       <v-btn
         rounded
         tile
-        class="mx-auto  white--text "
-        color="black"
-        elevation="5"
+        class="mx-auto  blue--text "
+        color="grey lighten-5"
+        elevation="10"
         @click="$emit('clickZakaz')"
       >
         reservar un tour
@@ -84,9 +81,7 @@ export default {
     text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
     font-size: 25px;
   }
-  .elevation-5{
-    text-shadow: 2px 2px 2px rgba(37, 34, 190, 0.1);
-  }
+
 
 </style>
 

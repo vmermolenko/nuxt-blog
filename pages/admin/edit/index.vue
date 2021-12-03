@@ -1,6 +1,20 @@
 <template>
   <div>
     <!-- navbar -->
+    <alert v-if="flag" :message="alertMessage"></alert>
+    <v-dialog v-model="dialog" max-width="500px">
+          <v-card class="pa-5">
+            <p class="text-center text-h6">
+              Выйти без сохранения?
+            </p>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="red" @click="$router.push('/admin')">да</v-btn>
+              <v-btn color="blue darken-1" text @click="dialog=!dialog">нет</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
     <validation-observer ref="observer">
       <v-row>
           <v-card width="100%" color="primary" v-if="show">
@@ -11,7 +25,7 @@
         <v-card elevation="4" width="100%" class="ma-1">
           <v-toolbar dense>
             <v-btn
-            @click="$router.push('/admin')"
+            @click="toListTours"
             color="primary"
             >
             <v-icon
@@ -20,7 +34,7 @@
             >
               mdi-arrow-left
             </v-icon>
-              Назад
+              Назад к списку туров
             </v-btn>
             <v-btn
             class="ml-5"
@@ -386,6 +400,13 @@
     },
     data() {
       return {
+        dialog: false,
+        oldDataLength: null,
+        newDataLength: null,
+        //alert
+        alertMessage: '',
+        flag: false,
+        //
         show: true,
         // tur
         turEdited: {
@@ -412,12 +433,8 @@
         foto: '',
         nameFoto: '',
         itemsArray: [],
-
-
-
         componentType: null,
         components: [
-
           {
             text: 'Заголовок по центру',
             value: 'constructor-title-center'
@@ -474,14 +491,20 @@
     },
     async mounted() {
       await this.$store.dispatch('getAllTours')
+
       const tour = this.$store.getters.getTours.find(t => t.id ==  this.$route.query.id)
       if (tour) {
         this.turEdited = tour
       } else {
         this.$router.push('/admin')
       }
+      this.oldDataLength = JSON.stringify(this.turEdited).length
     },
     computed: {
+      // if user has Changed data tour
+      hasChanged() {
+        return this.oldDataLength !== this.newDataLength;
+      },
       compAction() {
         return this.$route.query.id ? 'Редактирование тура' : 'Создание тура'
       },
@@ -504,6 +527,12 @@
 
     },
     methods: {
+      toListTours(){
+        this.newDataLength = JSON.stringify(this.turEdited).length
+        if(this.hasChanged) {
+          this.dialog=!this.dialog 
+        } else this.$router.push('/admin') 
+      },
       toTop () {
         this.$vuetify.goTo(0)
       },
@@ -518,6 +547,12 @@
         const isValid = await this.$refs.observer.validate()
         if(isValid){
           this.$store.dispatch('setTourUpdate', this.turEdited)
+          this.oldDataLength = JSON.stringify(this.turEdited).length
+          this.flag=!this.flag
+          this.alertMessage = 'Изменения сохранены'
+          setTimeout(()=>{
+            this.flag=!this.flag
+          }, 2000)
         }
       },
       addItemArray(){

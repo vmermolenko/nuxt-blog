@@ -169,12 +169,12 @@
 
   extend('required', {
     ...required,
-    message: 'Заполните поле',
+    message: 'Rellene el campo',
   })
 
   extend('email', {
     ...email,
-    message: 'Введите правильный Email',
+    message: 'Introduzca el email correcto',
   })
 
   export default {
@@ -227,12 +227,12 @@
           emailjs.send('service_gk0z8oi', 'template_7s6445l', templateParams, 'user_VAhdS8kJOg8ogyDaT9FNI')
 
           this.dialog = !this.dialog
-          this.$emit('showAlert')
+          this.$emit('showAlert','Tour ordenado')
         }
       },
     },
     mounted() {
-      console.log(this.$refs.form);
+
     }
 
 

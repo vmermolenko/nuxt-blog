@@ -23,7 +23,10 @@ export default {
     color: 'blue',
     height: '5px'
   },
-
+  // css:[
+  //   { src: "swiper/dist/css/swiper.css" }
+  // ],
+ // Другие коды
   // Global CSS: https://go.nuxtjs.dev/config-css
   // css: [
   //   './assets/fonts/assistant.css',
@@ -49,7 +52,6 @@ export default {
   buildModules: [
     // Simple usage
     '@nuxtjs/vuetify',
-
     // With options
     // ['@nuxtjs/vuetify', { /* module options */ }]
   ],

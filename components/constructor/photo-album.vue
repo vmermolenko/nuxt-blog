@@ -3,21 +3,14 @@
     <v-row
     dflex class="my-1 justify-center" max-width="800" max-height="250"
     >
-
-        <v-col md="3" class="md-3" v-for="(item, idx) in items" :key="idx" @click="showDialog(idx)" style="cursor: pointer">
-
-            <v-img :src="item"  max-height="250">
-            </v-img>
-
-        </v-col>
-
-
-
+      <v-col md="3" class="md-3" v-for="(item, idx) in items" :key="idx" @click="showDialog(idx)" style="cursor: pointer">
+        <v-img :src="item"  max-height="250">
+        </v-img>
+      </v-col>
     </v-row>
 
     <v-dialog
       v-model="dialog"
-
     >
       <v-card>
         <v-img

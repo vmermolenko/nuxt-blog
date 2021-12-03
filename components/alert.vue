@@ -1,24 +1,25 @@
 <template>
   <div>
     <v-snackbar
-      min-width="950"
+      max-width="150"
       color="success"
       top
       v-model="snackbar"
       elevation="24"
       rounded="pill"
+      right
     >
       <div class="text-center">
-        {{ text }}
+        {{ message }}
       </div>
     </v-snackbar>
   </div>
 </template>
 <script>
   export default {
+    props: ['message'],
     data: () => ({
       snackbar: true,
-      text: `Заказ отправлен!`,
     }),
   }
 </script>

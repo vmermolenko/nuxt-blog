@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app >
-      <alert v-if="flag"></alert>
+      <alert v-if="flag" :message="alertMessage"></alert>
       <modal-zakaz
         v-model="dialog"
         @showAlert="showAlert"
@@ -26,14 +26,16 @@ export default {
     return {
       dialog: false,
       flag: false,
+      alertMessage: ''
     }
   },
   computed: {
 
   },
   methods: {
-    showAlert(){
+    showAlert(data){
       this.flag=!this.flag
+      this.alertMessage = data
       setTimeout(()=>{
         this.flag=!this.flag
       }, 3000)
