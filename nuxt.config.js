@@ -43,7 +43,7 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     treeShake: true
   },
-  plugins: ['~plugins/vuetify.js'],
+  plugins: ['~plugins/vuetify.js', '~plugins/slyder.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
