@@ -58,8 +58,8 @@ export default {
     '@nuxtjs/auth-next',
   ],
   env: {
-    //baseURL: ["https://nuxt-blog2021.herokuapp.com", "http://localhost:3000"]
-    baseURL: "http://localhost:3000"
+    baseURL: ["https://nuxt-blog2021.herokuapp.com", "http://localhost:3000"]
+    // baseURL: "http://localhost:3000"
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

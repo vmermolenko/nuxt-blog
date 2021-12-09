@@ -5,6 +5,7 @@
   font-size: 23px;
 }
 .nuxtLink{text-decoration: none;}
+
 /* pages */
 .title-font{
   color: #2b2b2b;
@@ -32,6 +33,7 @@
 .v-progress-circular {
   margin: 1rem;
 }
+
 /* constructor */
 p {
   font-size: 16px
@@ -61,11 +63,13 @@ p {
   float: right;
   margin: 10px 0 10px 10px;
 }
+
 /* admin panel */
 .sticky{
   position: sticky;
   top: 7px;
 }
+
 @font-face {
   font-family: 'Merienda-Regular';
   src: url("~assets/fonts/Merienda-Regular.ttf") format("truetype");
