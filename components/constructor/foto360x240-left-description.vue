@@ -19,8 +19,5 @@ export default {
 }
 </script>
 <style>
-  .leftimg {
-    float:left;
-    margin: 10px 10px 10px 0px;
-  }
+
 </style>

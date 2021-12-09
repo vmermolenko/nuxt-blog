@@ -223,22 +223,5 @@ export default {
   },
 }
 </script>
-<style>
-.title-card-font {
-  font-family: 'Merienda', cursive !important;
-  color: #2b2b2b;
-  font-size: 20px;
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-}
-.leftimg {
-  float:left;
-  margin: 10px 10px 10px 0px;
-}
-.elevation-5{
-  text-shadow: 2px 2px 2px rgba(37, 34, 190, 0.1);
-}
-.card-link{
-  cursor: pointer
-}
-</style>
+
 

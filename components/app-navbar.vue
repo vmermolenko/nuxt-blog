@@ -72,16 +72,4 @@ export default {
   },
 }
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&family=Comforter&family=Merienda&family=Solway&display=swap');
-  .nuxtLink{text-decoration: none;}
-  .font-logo{
-    font-family: 'Merienda', cursive !important;
-    color: #2b2b2b;
-    text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
-    font-size: 25px;
-  }
-
-
-</style>
 

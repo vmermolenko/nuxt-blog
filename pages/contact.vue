@@ -8,9 +8,6 @@
           <v-icon class="black--text d-none d-sm-flex mr-3">mdi-phone-classic</v-icon>
           +7(981)781-60-68
         </a>
-
-
-
         <v-divider class="mt-7"></v-divider>
       </v-container>
     </v-app>
@@ -25,7 +22,4 @@ export default {
   }
 }
 </script>
-<style scoped>
 
-
-</style>

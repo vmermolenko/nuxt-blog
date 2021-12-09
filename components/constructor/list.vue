@@ -26,16 +26,4 @@ export default {
   props: ['title', 'items']
 }
 </script>
-<style scoped>
-.list-title{
-font-family: 'Merienda', cursive !important;
-  color: #2b2b2b;
-  font-weight: bold;
-  font-size: 18px;
-}
-.list-item{
-  font-family: 'Merienda', cursive !important;
-  color: #2b2b2b;
-  /* font-size: 25px; */
-}
-</style>
+

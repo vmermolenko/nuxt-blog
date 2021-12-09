@@ -530,8 +530,8 @@
       toListTours(){
         this.newDataLength = JSON.stringify(this.turEdited).length
         if(this.hasChanged) {
-          this.dialog=!this.dialog 
-        } else this.$router.push('/admin') 
+          this.dialog=!this.dialog
+        } else this.$router.push('/admin')
       },
       toTop () {
         this.$vuetify.goTo(0)
@@ -608,10 +608,5 @@
     },
   }
 </script>
-<style scoped>
-.sticky{
-  position: sticky;
-  top: 7px;
-}
-</style>
+
 

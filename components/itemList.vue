@@ -13,11 +13,5 @@ export default {
 }
 </script>
 <style>
-  #el {
-   width: 200px;
-	overflow: hidden;
-  white-space: nowrap;
-	text-overflow: ellipsis;
 
-}
 </style>

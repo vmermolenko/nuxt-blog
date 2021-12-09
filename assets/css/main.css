@@ -1,0 +1,75 @@
+/* navbar */
+.font-logo{
+  color: #2b2b2b;
+  text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+  font-size: 23px;
+}
+.nuxtLink{text-decoration: none;}
+/* pages */
+.title-font{
+  color: #2b2b2b;
+  font-size: 21px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+.link {
+  text-decoration:none;
+}
+.shadow {
+  text-shadow: 1px 3px 2px black, 0 0 0.5em orange;
+}
+.title-card-font {
+  font-family: 'Merienda', cursive !important;
+  color: #2b2b2b;
+  font-size: 20px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+.elevation-5{
+  text-shadow: 2px 2px 2px rgba(37, 34, 190, 0.1);
+}
+.card-link{
+  cursor: pointer
+}
+.v-progress-circular {
+  margin: 1rem;
+}
+/* constructor */
+p {
+  font-size: 16px
+}
+.title-content{
+  font-size: 20px
+}
+#el {
+  width: 200px;
+	overflow: hidden;
+  white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.list-title{
+  color: #2b2b2b;
+  font-weight: bold;
+  font-size: 18px;
+}
+.list-item{
+  color: #2b2b2b;
+}
+.leftimg {
+  float:left;
+  margin: 10px 10px 10px 0px;
+}
+.rightimg  {
+  float: right;
+  margin: 10px 0 10px 10px;
+}
+/* admin panel */
+.sticky{
+  position: sticky;
+  top: 7px;
+}
+@font-face {
+  font-family: 'Merienda-Regular';
+  src: url("~assets/fonts/Merienda-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+  }
+

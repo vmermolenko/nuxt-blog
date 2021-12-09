@@ -110,22 +110,5 @@ export default {
   }
 }
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&family=Comforter&family=Merienda&family=Solway&display=swap');
-.title-font {
-  font-family: 'Merienda', cursive !important;
-  color: #2b2b2b;
-  font-size: 20px;
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-}
-.link {
-  text-decoration:none;
-}
-[v-cloak] {
-  display: none!important;
-}
-.shadow {
-  text-shadow: 1px 3px 2px black, 0 0 0.5em orange; /* Параметры тени */
-  }
-</style>
+
 

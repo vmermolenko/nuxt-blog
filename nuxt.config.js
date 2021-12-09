@@ -23,18 +23,12 @@ export default {
     color: 'blue',
     height: '5px'
   },
-  // css:[
-  //   { src: "swiper/dist/css/swiper.css" }
-  // ],
  // Другие коды
   // Global CSS: https://go.nuxtjs.dev/config-css
-  // css: [
-  //   './assets/fonts/assistant.css',
-  //   './assets/css/styles.css',
-  //   './assets/main.css'
-  // ],
-
-
+  css: [
+    // './assets/fonts/assistant.css',
+    '~assets/css/main.css'
+  ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   // plugins: [
   //   '@/plugins/globals'
