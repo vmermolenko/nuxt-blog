@@ -1,18 +1,20 @@
 <template>
-  <div class="mb-5 ml-10">
-    <p class="text-h6 mb-2">
+  <div class="mb-5 ml-3">
+    <p class="list-title mb-2">
       {{title}}
     </p>
     <v-row v-for="(item, idx) in items" :key="idx"
     dflex class="my-1"
     >
         <v-badge
+          color="blue-grey lighten-1"
+
           dot
           inline
           left
           class="my-auto"
         >
-        <p dflex class="pl-3 text-subtitle-2 my-auto" >
+        <p dflex class="pl-3 list-item my-auto" >
           {{item}}
         </p>
         </v-badge>
@@ -24,3 +26,4 @@ export default {
   props: ['title', 'items']
 }
 </script>
+

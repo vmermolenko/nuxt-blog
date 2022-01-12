@@ -18,8 +18,5 @@ export default {
 }
 </script>
 <style>
-.rightimg  {
-  float: right;
-  margin: 10px 0 10px 10px;
-}
+
 </style>

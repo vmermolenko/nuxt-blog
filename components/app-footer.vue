@@ -82,7 +82,7 @@
           },
           {
             icon: 'mdi-instagram',
-            link: 'https://www.instagram.com/explore/tags/%D0%B3%D0%BE%D0%B2%D0%BD%D0%BE/'
+            link: 'https://instagram.com/george_tours4u?utm_medium=copy_link'
           }
       ],
     }),

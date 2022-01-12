@@ -3,7 +3,6 @@ export const strict = false
 export const state = () => ({
   tours: [],
   SelectedCategory: ['all'],
-  turForZakaz: '',
   filteredTurs: [],
 });
 ////////////////getters
@@ -20,23 +19,18 @@ export const getters = {
   SelectedCategory(state) {
     return state.SelectedCategory
   },
-  getTurForZakaz(state) {
-    return state.turForZakaz
-  },
   getFilteredTurs(state){
     return state.filteredTurs
   },
-
 };
 ////////////////mutation
-export const mutations =
-{
+export const mutations = {
   setEditTour(state, editedTour){
     for (var i = 0; i < state.tours.length; i++) {
       var cur = state.tours[i];
       if (cur.id === editedTour.id) {
-          state.tours.splice(i, 1);
-          break;
+        state.tours.splice(i, 1);
+        break;
       }
     }
     state.tours.push(editedTour)
@@ -48,13 +42,10 @@ export const mutations =
     for (var i = 0; i < state.tours.length; i++) {
       var cur = state.turs[i];
       if (cur.id === id) {
-          state.tours.splice(i, 1);
-          break;
+        state.tours.splice(i, 1);
+        break;
       }
     }
-  },
-  setTurForZakaz(state, title){
-    state.turForZakaz = title
   },
   setFilterByCategory(state, newArray){
     state.SelectedCategory = newArray

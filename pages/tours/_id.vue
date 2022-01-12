@@ -1,97 +1,111 @@
 <template>
   <div>
-    <v-divider class="mb-5 mt-5"></v-divider>
+    <v-divider class="mb-5"></v-divider>
     <v-app>
+
+      <alert v-if="flag" :message="alertMessage"></alert>
+      <modal-zakaz
+        v-model="dialog"
+        @showAlert="showAlert"
+        :TurForZakaz="this.tur.title"
+      >
+      </modal-zakaz>
       <v-container >
 
         <loader class="my-auto mx-auto" v-if="tur.img===''" />
 
         <div v-else>
+          <v-card  elevation="1" class="pr-0">
+            <v-row class="mb-10 pa-0 ma-0">
 
-          <div style="min-height:500px">
-            <p class="text-h5 font-weight-bold" style="text-align: center">{{ tur.title }}</p>
+                <v-col md="7" class="pa-0">
 
-              <v-card class="leftimg"  width="600">
-                <v-img :src="tur.img">
-                </v-img>
-              </v-card>
+                    <v-img :src="tur.img">
+                    </v-img>
+                </v-col>
 
-              <div v-if="tur.content">
-                <component v-for="item in tur.content" :key="item.id" :is="item.type"
-                :text="item.text"
-                :foto="item.foto"
-                :nameFoto="item.nameFoto"
-                :title="item.title"
-                :items="item.items"
-                ></component>
-              </div>
+                <v-col md="5" class="pr-0">
+                  <p class="pa-2 font-weight-bold title-card-font" >{{tur.typetour}}: {{ tur.title }}</p>
+                  <v-card-text font-size=8px class="black--text pl-2">
+                    <v-icon class="mr-2" color="black">mdi-account-group-outline</v-icon> <strong>grupo :</strong>  &nbsp;  {{ tur.team }}
+                  </v-card-text>
 
-          </div>
+                  <v-card-text font-size=8px class=" black--text pt-0 pl-2">
+                    <v-icon class="mr-2" color="black">mdi-currency-usd</v-icon><strong>precio :</strong>  &nbsp;  {{ tur.amount }}
+                  </v-card-text>
+                </v-col>
+
+            </v-row>
+          </v-card>
+          <v-card elevation="1" class="pa-2">
+            <p class="title-font" style="text-align: center">Programa de la gira:</p>
+
+            <div v-if="tur.content">
+              <component v-for="item in tur.content" :key="item.id" :is="item.type"
+              :text="item.text"
+              :foto="item.foto"
+              :nameFoto="item.nameFoto"
+              :title="item.title"
+              :items="item.items"
+              ></component>
+            </div>
+
+          </v-card>
 
           <v-row>
             <v-col>
-              <v-card-text font-size=8px class="black--text" style="align-items: center">
-                <v-icon class="mx-2" color="primary">mdi-account-group-outline</v-icon> : &nbsp; <strong> {{ tur.team }} </strong>
-              </v-card-text>
-
-              <v-card-text font-size=8px class=" black--text pt-0">
-              <v-icon class="mx-2" color="primary">mdi-currency-usd</v-icon> : &nbsp; <strong> {{ tur.amount }} </strong>
-              </v-card-text>
-
-              <v-divider></v-divider>
-
               <v-card-actions  class="justify-center">
                 <v-btn
                   @click="clickZakaz"
-                  rounded
-                  class="mt-3 mb-5 white--text"
-                  color="primary"
-                  elevation="1"
+                  class="ml-3 mt-3 blue--text"
+                  color="grey lighten-5"
+                  elevation="10"
                 >
-                Заказать этот тур
+                reservar este tour
                 </v-btn>
               </v-card-actions>
+
+              <v-divider class="my-7"></v-divider>
+
             </v-col>
           </v-row>
 
-
+          <!-- similar random tours -->
           <v-row>
             <v-col md="12">
-                  <p class="mb-0 text-h6 font-weight-bold" style="text-align: left">Другие туры по выбранным категориям:</p>
+              <p class="pl-2 font-weight-bold title-card-font my-0 py-0" >Otros tours: </p>
             </v-col>
           </v-row>
-
           <v-row>
-            <v-col md=3 class="pa-2" v-for="(turRandom, index) in filteredTursRandomComp" :key="index">
+            <v-col md=3 class="pa-0" v-for="(turRandom, index) in filteredTursRandomComp" :key="index">
+              <v-card-actions class="card-link justify-center" @click="$router.push(`/tours/${turRandom.id}`)">
+
               <v-card v-if="turRandom.id"
                 elevation="10"
                 height="100%"
               >
-                <v-card-text font-size=8px class="pa-1 pl-4 white--text text-no-wrap primary">
-                    {{turRandom.typetour}}
-                </v-card-text>
                 <v-img
 
-                height="250"
+                height="150"
                 :src="turRandom.img"
                 >
+                <v-card-text elevation="10" class=" pa-1 pl-4 white--text shadow" style="font-size: 16px">
+                    <strong>
+                      {{turRandom.typetour}}
+                    </strong>
+                </v-card-text>
                 </v-img>
 
-                <v-card-text font-size=8px class="pa-1 black--text" style="height:40px">
+                <v-card-text font-size=8px class="pa-1 black--text" style="height:80px">
                   {{turRandom.title}}
                 </v-card-text>
 
-                <v-card-actions class="a justify-center" @click="$router.push(`/tours/${turRandom.id}`)">
-                  <v-btn class="mb-5"
-                    rounded
-                    color="primary"
-                    text
-                  >
-                    Посмотреть тур
-                  </v-btn>
-                </v-card-actions>
+
+
 
               </v-card>
+
+              </v-card-actions>
             </v-col>
           </v-row>
 
@@ -106,9 +120,9 @@
         dark
         fixed
         medium
-        color="primary"
+        color="grey lighten-5"
         class="v-btn v-btn--bottom v-btn--floating v-btn--fixed v-btn--right theme--dark">
-        <v-icon dark>mdi-chevron-up</v-icon>
+        <v-icon dark color="black">mdi-chevron-up</v-icon>
       </v-btn>
 
     </v-app>
@@ -156,7 +170,9 @@ export default {
         typetour: '',
         typerus:'',
         content: {}
-      }
+      },
+      dialog: false,
+      flag: false,
     }
   },
   computed: {
@@ -178,8 +194,15 @@ export default {
     }
   },
   methods: {
+    showAlert(data){
+      this.flag=!this.flag
+      this.alertMessage = data
+      setTimeout(()=>{
+        this.flag=!this.flag
+      }, 3000)
+    },
     clickZakaz() {
-      this.$store.commit('setDialog')
+      this.dialog = !this.dialog
     },
     toTop () {
       this.$vuetify.goTo(0)
@@ -196,14 +219,9 @@ export default {
       this.$router.push('/')
     }
 
-    this.$store.commit('setTurForZakaz', this.tur.title)
+
   },
 }
 </script>
-<style>
-  .leftimg {
-    float:left;
-    margin: 10px 10px 10px 0px;
-  }
-</style>
+
 

@@ -2,19 +2,18 @@
 <template>
   <div>
     <v-card
-      style="position: sticky; top: 0px"
       md="3"
-      elevation="4"
-      height="425"
+      elevation="0"
+      height="350"
     >
     <!-- site search -->
-    <search-site></search-site>
+    <div>
+      <search-site></search-site>
 
       <div @click="clickCheckbox">
         <v-checkbox
           class="ml-2 mt-0"
           v-model="selected"
-
           color="primary"
           value="all"
           hide-details
@@ -22,7 +21,7 @@
         >
           <template v-slot:label>
             <span>
-              Все туры
+              Todos los tours
               &nbsp; <span class="primary--text" style="font-size: 0.8em;">{{ getAllTours.length }}</span>
             </span>
           </template>
@@ -50,6 +49,8 @@
         color="primary"
       ></v-progress-linear>
 
+    </div>
+
     </v-card>
   </div>
 </template>
@@ -61,10 +62,10 @@ export default {
       loader: false,
       selected:[],
       checkbox: [
-        { label: 'Туры по Санкт-Петербургу', value: 'Санкт-Петербург' },
-        { label: 'Туры по пригородам Санкт-Петербурга', value: 'Пригород' },
-        { label: 'Туры по Карелии', value: 'Карелия' },
-        { label: 'Вип туры', value: 'ВИП' },
+        { label: 'Tours de San Petersburgo', value: 'San Petersburgo' },
+        { label: 'Tours por los suburbios de San Petersburgo', value: 'Suburbio' },
+        { label: 'Tours en Karelia', value: 'Carelia' },
+        { label: 'Tours VIP', value: 'VIP' },
       ]
     }
   },

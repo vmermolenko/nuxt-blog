@@ -13,25 +13,22 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap",
-      },
+      // {
+      //   rel: "stylesheet",
+      //   href: "https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap",
+      // },
     ]
   },
   loading: {
     color: 'blue',
     height: '5px'
   },
-
+ // Другие коды
   // Global CSS: https://go.nuxtjs.dev/config-css
-  // css: [
-  //   './assets/fonts/assistant.css',
-  //   './assets/css/styles.css',
-  //   './assets/main.css'
-  // ],
-
-
+  css: [
+    // './assets/fonts/assistant.css',
+    '~assets/css/main.css'
+  ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   // plugins: [
   //   '@/plugins/globals'
@@ -40,7 +37,7 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     treeShake: true
   },
-  plugins: ['~plugins/vuetify.js'],
+  plugins: ['~plugins/vuetify.js', '~plugins/slyder.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -49,7 +46,6 @@ export default {
   buildModules: [
     // Simple usage
     '@nuxtjs/vuetify',
-
     // With options
     // ['@nuxtjs/vuetify', { /* module options */ }]
   ],
@@ -62,14 +58,14 @@ export default {
     '@nuxtjs/auth-next',
   ],
   env: {
-    //baseURL: ["https://nuxt-blog2021.herokuapp.com", "http://localhost:3000"]
-    baseURL: "http://localhost:3000"
+    baseURL: "https://nuxt-blog2021.herokuapp.com"
+    // baseURL: "http://localhost:3000"
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL: process.env.baseURL  // here set your API url
-  },
-  /*
+  // axios: {
+  //   baseURL: process.env.baseURL  // here set your API url
+  // },
+
   axios: {
     baseURL: process.env.NODE_ENV === 'dev'
     ? 'http://localhost:3000'
@@ -85,7 +81,7 @@ export default {
       baseURL: process.env.BASE_URL
     }
   },
-  */
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["vee-validate/dist/rules"],

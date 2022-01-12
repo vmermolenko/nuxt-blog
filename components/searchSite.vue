@@ -5,13 +5,13 @@
   :items="items"
   :loading="isLoading"
   :search-input.sync="search"
-  class="ma-2 mt-0"
+  class="my-2 mt-0"
   color="primary"
   hide-no-data
   hide-selected
   item-text="Description"
   item-value="API"
-  label="Поиск по турам"
+  label="Búsqueda por tours"
   prepend-icon="mdi-database-search"
   return-object
   ></v-autocomplete>

@@ -14,8 +14,3 @@
   }
 </script>
 
-<style lang="scss" scoped>
-html,body, #__nuxt, #__layout{
-  width: 100vw!important;
-}
-</style>

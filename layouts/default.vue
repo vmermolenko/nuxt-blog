@@ -1,17 +1,20 @@
 <template>
   <div>
     <v-app >
-      <alert v-if="flag"></alert>
+      <alert v-if="flag" :message="alertMessage"></alert>
+      <modal-zakaz
+        v-model="dialog"
+        @showAlert="showAlert"
+        :TurForZakaz="null"
+      >
+      </modal-zakaz>
       <v-main>
         <v-container>
-          <app-navbar></app-navbar>
+          <app-navbar @clickZakaz="dialog=!dialog"></app-navbar>
           <Nuxt />
           <app-footer></app-footer>
         </v-container>
       </v-main>
-      <modal-zakaz
-        @showAlert="showAlert"
-      ></modal-zakaz>
     </v-app>
 
   </div >
@@ -21,12 +24,18 @@
 export default {
   data() {
     return {
-      flag: false
+      dialog: false,
+      flag: false,
+      alertMessage: ''
     }
   },
+  computed: {
+
+  },
   methods: {
-    showAlert(){
+    showAlert(data){
       this.flag=!this.flag
+      this.alertMessage = data
       setTimeout(()=>{
         this.flag=!this.flag
       }, 3000)
@@ -38,12 +47,6 @@ export default {
 }
 </script>
 
-<style>
-html,body, #__nuxt, #__layout{
-  height:100%!important;
-  width: 100%!important;
-}
-</style>
 
 
 

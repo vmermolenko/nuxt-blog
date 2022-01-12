@@ -1,60 +1,75 @@
 <template>
 <div>
+
 <v-app-bar
-  color="white"
-  dense
+  color="grey lighten-5"
   flat
 >
   <v-app-bar-nav-icon @click.stop="drawer=!drawer" class="d-flex d-md-none"/>
   <nuxt-link to="/" class="d-flex nuxtLink">
     <!--logo -->
+    <!-- :src="require('../assets/img/logo-64.jpeg')" -->
+
     <v-img
       class="d-none d-sm-flex"
-      :src="require('../assets/img/logo-64.jpeg')"
-      max-height="64"
-      max-width="64"
+      src="https://bumper-stickers.ru/50498-thickbox_default/sankt-peterburg-razvodnye-mosty.jpg"
+
+      max-width="100"
       contain
     ></v-img>
     <!-- company name -->
-    <v-toolbar-title class="black--text ml-2 text-h5 d-flex align-center">
-      Life Is Travel
-    </v-toolbar-title>
+    <span class="black--text ml-4 d-flex align-center font-logo font-weight-bold" >
+      La Vida Es Viajar
+    </span>
   </nuxt-link>
 
   <v-spacer></v-spacer>
-  <v-icon class="d-none d-sm-flex">mdi-phone-classic</v-icon>
-  <v-toolbar-title class="black--text ml-3  d-none d-sm-flex">
-     <a href="tel:+79817816068">+7(981)781-60-68</a>
-  </v-toolbar-title>
+
   <v-btn
-    rounded
-    class="ml-3  white--text"
-    color="primary"
-    elevation="2"
-    @click="dialog = !dialog"
+    class="ml-3  blue--text d-none d-sm-flex elevation-10"
+    color="grey lighten-5"
+    elevation="10"
+    @click="$emit('clickZakaz')"
   >
-  Заказать тур
+  reservar un tour
   </v-btn>
-  <modal-zakaz v-model="dialog"></modal-zakaz>
+
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" absolute width="280">
-    <fixed-panel style="height: 100%"></fixed-panel>
+  <v-navigation-drawer v-model="drawer" absolute width="300">
+
+    <fixed-panel class="pt-10"></fixed-panel>
+
+    <v-card elevation="0">
+      <v-card-actions class="a justify-center">
+      <v-btn
+        rounded
+        tile
+        class="mx-auto  blue--text "
+        color="grey lighten-5"
+        elevation="10"
+        @click="$emit('clickZakaz')"
+      >
+        reservar un tour
+      </v-btn>
+      </v-card-actions>
+    </v-card>
+
+
   </v-navigation-drawer>
 </div>
 
 </template>
 <script>
 export default {
+  emits:['clickZakaz'],
   data() {
     return {
-      dialog: false,
-      drawer: false
+      drawer: false,
     }
-  }
+  },
+  methods: {
+  },
 }
 </script>
-<style>
-   .nuxtLink{text-decoration: none;}
-</style>
 

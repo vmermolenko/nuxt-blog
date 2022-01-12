@@ -19,10 +19,12 @@
     "jsonwebtoken": "^8.5.1",
     "nuxt": "^2.15.7",
     "nuxt-express-module": "0.0.11",
+    "nuxt-gallery": "^2.0.0",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.7.0",
     "vee-validate": "^3.4.13",
+    "vue-gallery-slideshow": "^1.5.2",
     "vuetify": "^2.5.10"
   },
   "devDependencies": {
